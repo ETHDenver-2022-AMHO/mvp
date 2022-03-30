@@ -1,5 +1,5 @@
 // NOTE: This component might not even be used
-function Collection({id}) {
+function Collection() {
   const router = useRouter();
 
   // NOTE: This ID will be used to query the smart contract
@@ -34,7 +34,7 @@ function Collection({id}) {
           <div>
             <button
               type="button"
-              class="text-gray-800 bg-slate-50 focus:ring-4 ring-slate-800 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 ring-2"
+              className="text-gray-800 bg-slate-50 focus:ring-4 ring-slate-800 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 ring-2"
               onClick={handleOpen}
             >
               BUY FOR {dummyData.price} MATIC
@@ -42,17 +42,13 @@ function Collection({id}) {
           </div>
         </div>
       </div>
-      <PurchaseDialog
+      {/* <PurchaseDialog
         open={open}
         handleOpen={handleOpen}
         itemImage={"/bagplaceholder2.png"}
-      />
+      /> */}
     </>
   );
-}
-
-const TetheringDialog = () => {
-
 }
 
 export default Collection

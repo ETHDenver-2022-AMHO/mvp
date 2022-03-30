@@ -1,6 +1,7 @@
 import { LayoutMargin } from "../components/Layout";
 import { useEffect, useState } from "react";
-import { evmContractConditions } from "../utils/constants";
+// import { evmContractConditions } from "../utils/constants";
+import { getEvmContractConditionsTemplate } from "../utils/constants";
 import { useQRCode } from "next-qrcode";
 import Amho from "../artifacts/contracts/Amho.sol/Amho.json";
 import VRF from "../artifacts/contracts/VRFConsumer.sol/VRFConsumer.json";
@@ -44,13 +45,13 @@ const Admin = ({ litCeramicIntegration }) => {
 
   const { Image } = useQRCode();
 
-  if (typeof window !== "undefined") {
-    useEffect(() => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       const API_URL = "https://ceramic-clay.3boxlabs.com";
       const ceramic = new CeramicClient(API_URL);
       setCeramic(ceramic);
-    }, []);
-  }
+    }
+  }, []);
 
   const getVRF = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -85,10 +86,21 @@ const Admin = ({ litCeramicIntegration }) => {
     const hexString = ethers.BigNumber.from(result._hex).toHexString();
 
     return [resultString, hexString];
-
   };
 
   const encryptSecret = async (secretValue) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    const signer = provider.getSigner();
+
+    let amhoContract = new ethers.Contract(nftAddress, Amho.abi, signer);
+    let currentTokenId = amhoContract.getCurrentTokenId();
+
+    const tokenId = ethers.BigNumber.toString(currentTokenId);
+    const evmContractConditions = getEvmContractConditionsTemplate(tokenId);
+
+    console.log("TokenId ", tokenId);
+    console.log("ecc", evmContractConditions);
+
     await litCeramicIntegration
       .encryptAndWrite(
         secretValue,
@@ -184,7 +196,7 @@ const Admin = ({ litCeramicIntegration }) => {
         <div>
           <button
             onClick={mintNft}
-            class="w-full focus:ring-4 ring-slate-800 ring-2 dark:text-gray-800 dark:bg-slate-50 sm:w-auto mt-14 text-base leading-4 text-center text-white py-6 px-16 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800"
+            className="w-full focus:ring-4 ring-slate-800 ring-2 dark:text-gray-800 dark:bg-slate-50 sm:w-auto mt-14 text-base leading-4 text-center text-white py-6 px-16 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 bg-gray-800"
           >
             MINT
           </button>

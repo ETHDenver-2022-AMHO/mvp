@@ -6,6 +6,12 @@ require("dotenv").config();
 module.exports = {
   // solidity: "0.8.4",
   solidity: {
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 1000
+      }
+    },
     compilers: [
       {
         version: "0.8.4",

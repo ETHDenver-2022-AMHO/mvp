@@ -25,9 +25,8 @@ const Collections = ({ litCeramicIntegration }) => {
   const [streamData, setStreamData] = useState(null);
   const [decryptedSecret, setDecryptedSecret] = useState(null);
 
-  if (typeof window !== "undefined") {
-    useEffect(async () => {
-
+  useEffect(async () => {
+    if (typeof window !== "undefined") {
       const provider = new ethers.providers.Web3Provider(
         window.ethereum,
         "any"
@@ -53,6 +52,7 @@ const Collections = ({ litCeramicIntegration }) => {
             imageURI: metadata.data.imageURI,
             status: i.itemState,
           };
+          console.log(item);
           return item;
         })
       );
@@ -96,8 +96,8 @@ const Collections = ({ litCeramicIntegration }) => {
       setPending(resultPending);
       setPendingTether(resultPendingTether);
       setLoading(false);
-    }, [window.ethereum]);
-  }
+    }
+  }, [window.ethereum]);
 
   const handleOpen = ({ id }) => {
     setOpen(!open);

@@ -23,9 +23,11 @@ function ShopItem() {
   const handleOpen = () => {
     setOpen(!open);
   };
-  if (typeof window !== "undefined") {
     useEffect(async () => {
       // NOTE: Returns owned array
+    if (typeof window !== "undefined") {
+    return;
+    }
 
       const provider = new ethers.providers.Web3Provider(
         window.ethereum,
@@ -59,7 +61,6 @@ function ShopItem() {
       setItem(resultSingleItem);
       setLoading(false);
     }, [window.ethereum]);
-  }
 
   const handleBuy = async () => {
 
@@ -120,7 +121,7 @@ function ShopItem() {
           <div>
             <button
               type="button"
-              class="text-gray-800 bg-slate-50 focus:ring-4 ring-slate-800 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 ring-2"
+              className="text-gray-800 bg-slate-50 focus:ring-4 ring-slate-800 font-medium text-sm px-5 py-2.5 text-center mr-2 mb-2 ring-2"
               onClick={handleBuy}
             >
               BUY FOR {item.price} MATIC

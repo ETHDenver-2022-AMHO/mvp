@@ -5,13 +5,14 @@ import "./Escrow.sol";
 import "./Overrides/ERC721.sol";
 import "./Overrides/IERC20.sol";
 import "./Overrides/IERC721.sol";
-import "./Overrides/Counters.sol";
+// import "./Overrides/Counters.sol";
 import "./Overrides/ERC721URIStorage.sol";
-import "hardhat/console.sol";
+// import "hardhat/console.sol";
 
 contract Amho is ERC721URIStorage {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    // using Counters for Counters.Counter;
+    // Counters.Counter private _tokenIds;
+    uint256 private _tokenIds = 0;
 
     // NOTE: Enum values will be used to show the state of the item on the frontend
 
@@ -40,6 +41,11 @@ contract Amho is ERC721URIStorage {
     constructor(address payable _escrowContractAddress) ERC721("AMHO", "AMHO") {
         escrowContractAddress = payable(_escrowContractAddress);
         escrowContract = Escrow(_escrowContractAddress);
+    }
+
+    function getCurrentTokenId() public view returns (uint256) {
+        uint currTokenId = _tokenIds;
+        return currTokenId;
     }
 
     function getPrice(uint256 _tokenId) public view returns (uint256) {
@@ -107,10 +113,9 @@ contract Amho is ERC721URIStorage {
     // Oracle to run. Yeah yeah I know. This is expensive.
 
     function gasOpOracleCheckUntethered() public {
-        uint256 itemCount = _tokenIds.current();
+        uint256 itemCount = _tokenIds;
         for (uint256 i; i < itemCount; i++) {
             NFTState memory localState = getNFTState(i);
-            // NFTState storage state = idToNFTState[i];
             address possibleOwner = ownerOf(i);
             address currOwner = localState.currentOwner;
             address nextOwner = localState.nextOwner;
@@ -127,7 +132,7 @@ contract Amho is ERC721URIStorage {
         string memory tokenURI,
         uint256 _price
     ) public payable returns (uint256) {
-        uint256 id = _tokenIds.current();
+        uint256 id = _tokenIds;
 
         setApprovalForAll(escrowContractAddress, true);
         _mint(msg.sender, id);
@@ -141,7 +146,7 @@ contract Amho is ERC721URIStorage {
             secret: secret
         });
 
-        _tokenIds.increment();
+        _tokenIds = _tokenIds += 1;
         _setTokenURI(id, tokenURI);
 
         return id;
@@ -150,7 +155,7 @@ contract Amho is ERC721URIStorage {
     // NOTE: Fetch On Sale
 
     function fetchOnSale() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds.current();
+        uint256 totalCount = _tokenIds;
         uint256 ownedCount = 0;
         uint256 currentIndex = 0;
 
@@ -177,7 +182,7 @@ contract Amho is ERC721URIStorage {
     // NOTE: Fetch Owned
 
     function fetchOwned() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds.current();
+        uint256 totalCount = _tokenIds;
         uint256 ownedCount = 0;
         uint256 currentIndex = 0;
 
@@ -204,7 +209,7 @@ contract Amho is ERC721URIStorage {
     // NOTE: PENDING_INIT
 
     function fetchPendingInitOrders() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds.current();
+        uint256 totalCount = _tokenIds;
         uint256 pendingInitCount = 0;
         uint256 currentIndex = 0;
 
@@ -232,7 +237,7 @@ contract Amho is ERC721URIStorage {
     // NOTE: PENDING_TETHER Case in which just minted or just bought
 
     function fetchPendingTether() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds.current();
+        uint256 totalCount = _tokenIds;
         uint256 pendingTetherCount = 0;
         uint256 currentIndex = 0;
 

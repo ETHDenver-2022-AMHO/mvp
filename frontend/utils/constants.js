@@ -73,3 +73,70 @@ export const evmContractConditions = [
     },
   },
 ];
+
+export const getEvmContractConditionsTemplate = (_tokenId) => {
+  return [
+  {
+    contractAddress: CONTRACT_ADDRESS,
+    functionName: "getCurrentOwner",
+    functionParams: [`${_tokenId}`],
+    functionAbi: {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256"
+        }
+      ],
+      name: "getCurrentOwner",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    chain: "mumbai",
+    returnValueTest: {
+      key: "",
+      comparator: "=",
+      value: ":userAddress",
+    },
+  },
+  { operator: "or" },
+  {
+    contractAddress: CONTRACT_ADDRESS,
+    functionName: "getNextOwner",
+    functionParams: [`${_tokenId}`],
+    functionAbi: {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_tokenId",
+          type: "uint256"
+        }
+      ],
+      name: "getNextOwner",
+      outputs: [
+        {
+          internalType: "address",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    chain: "mumbai",
+    returnValueTest: {
+      key: "",
+      comparator: "=",
+      value: ":userAddress",
+    },
+  },
+];
+}
+

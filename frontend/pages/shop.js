@@ -11,10 +11,9 @@ import { ethers } from "ethers";
 const Shop = () => {
   const [onSale, setOnSale] = useState([]);
 
-  if (typeof window !== "undefined") {
-    useEffect(async () => {
-      // NOTE: Returns owned array
-
+  useEffect(async () => {
+    // NOTE: Returns owned array
+    if (typeof window !== "undefined") {
       const provider = new ethers.providers.Web3Provider(
         window.ethereum,
         "any"
@@ -27,22 +26,22 @@ const Shop = () => {
         owned.map(async (i) => {
           const tokenURI = await amhoContract.tokenURI(i.tokenId);
           const metadata = await axios.get(tokenURI);
-          let price = ethers.utils.formatUnits(i.price.toString(), 'wei');
+          let price = ethers.utils.formatUnits(i.price.toString(), "wei");
           let item = {
             price,
             tokenId: i.tokenId.toNumber(),
             owner: i.currentOwner,
             imageURI: metadata.data.imageURI,
             status: i.itemState,
-            name: metadata.data.name
+            name: metadata.data.name,
           };
           return item;
         })
       );
 
       setOnSale(resultOnSale);
-    }, [window.ethereum]);
-  }
+    }
+  }, []);
 
   return (
     <div className={LayoutMargin}>
