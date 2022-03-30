@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { nftAddress, escrowAddress, maticAddress } from "../../config";
 import { LayoutMargin } from "../../components/Layout";
 import { ethers } from "ethers";
@@ -23,12 +23,9 @@ function ShopItem() {
   const handleOpen = () => {
     setOpen(!open);
   };
-    useEffect(async () => {
-      // NOTE: Returns owned array
+  useEffect(async () => {
+    // NOTE: Returns owned array
     if (typeof window !== "undefined") {
-    return;
-    }
-
       const provider = new ethers.providers.Web3Provider(
         window.ethereum,
         "any"
@@ -38,49 +35,58 @@ function ShopItem() {
       let amhoContract = new ethers.Contract(nftAddress, Amho.abi, signer);
       let singleItem = await amhoContract.getNFTState(id);
 
-      const {tokenId, itemState, currentOwner} = singleItem;
+      const { tokenId, itemState, currentOwner } = singleItem;
 
       const tokenURI = await amhoContract.tokenURI(tokenId);
 
       const metadata = await axios.get(tokenURI);
 
-      const {name, imageURI, description, dimension, material, price, secretStream} = metadata.data;
+      const {
+        name,
+        imageURI,
+        description,
+        dimension,
+        material,
+        price,
+        secretStream,
+      } = metadata.data;
 
       const resultSingleItem = {
         name,
-        price: ethers.utils.formatUnits(price.toString(), 'wei'),
+        price: ethers.utils.formatUnits(price.toString(), "wei"),
         tokenId,
         imageURI,
         status: itemState,
         description,
         dimension,
         material,
-        owner: currentOwner
-      }
+        owner: currentOwner,
+      };
 
       setItem(resultSingleItem);
       setLoading(false);
-    }, [window.ethereum]);
+    }
+  }, []);
 
   const handleBuy = async () => {
-
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     const signer = provider.getSigner();
 
     let amhoContract = new ethers.Contract(nftAddress, Amho.abi, signer);
-    let maticContract = new ethers.Contract(maticAddress, MaticToken.abi, signer);
+    let maticContract = new ethers.Contract(
+      maticAddress,
+      MaticToken.abi,
+      signer
+    );
     let escrowContract = new ethers.Contract(escrowAddress, Escrow.abi, signer);
 
     const { tokenId, price } = item;
     const bnPrice = ethers.BigNumber.from(price);
 
-
     let tx = await maticContract.approve(escrowContract.address, bnPrice);
     await tx.wait();
     await amhoContract.depositTokenToEscrow(tokenId, bnPrice);
-
-
-  }
+  };
 
   if (loading)
     return (

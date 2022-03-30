@@ -94,8 +94,8 @@ const Admin = ({ litCeramicIntegration }) => {
 
     let amhoContract = new ethers.Contract(nftAddress, Amho.abi, signer);
     let currentTokenId = amhoContract.getCurrentTokenId();
+    let tokenId = currentTokenId.value;
 
-    const tokenId = ethers.BigNumber.toString(currentTokenId);
     const evmContractConditions = getEvmContractConditionsTemplate(tokenId);
 
     console.log("TokenId ", tokenId);
