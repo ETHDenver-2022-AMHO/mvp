@@ -1,0 +1,12 @@
+[default]
+src = 'contracts'
+out = 'abis'
+libs = ["node_modules", "lib"]
+remappings = [
+    '@chainlink/=node_modules/@chainlink/',
+    '@ensdomains/=node_modules/@ensdomains/',
+    '@openzeppelin/=node_modules/@openzeppelin/',
+    'hardhat/=node_modules/hardhat/',
+]
+
+# See more config options https://github.com/foundry-rs/foundry/tree/master/config
