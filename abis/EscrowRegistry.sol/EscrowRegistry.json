@@ -1,0 +1,160 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": {
+    "object": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122008587822657a7156eed069d64dc3aa25cb7bb938c6dd28e3e3b3b319fecbe7c264736f6c634300080f0033",
+    "sourceMap": "62:54:2:-:0;;;92:22;;;;;;;;;;62:54;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x6080604052600080fdfea264697066735822122008587822657a7156eed069d64dc3aa25cb7bb938c6dd28e3e3b3b319fecbe7c264736f6c634300080f0033",
+    "sourceMap": "62:54:2:-:0;;;;;",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {},
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.15+commit.e14f2714\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/core/EscrowRegistry.sol\":\"EscrowRegistry\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@chainlink/=node_modules/@chainlink/\",\":@ensdomains/=node_modules/@ensdomains/\",\":@openzeppelin/=node_modules/@openzeppelin/\",\":@thirdweb-dev/=node_modules/@thirdweb-dev/\",\":contracts/=contracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":hardhat/=node_modules/hardhat/\",\":script/=script/\",\":test/=test/\"]},\"sources\":{\"contracts/core/EscrowRegistry.sol\":{\"keccak256\":\"0x5297f68f6634777c25862ec9d292057e230e31010eb877bb9c235e99210a5a5f\",\"license\":\"Unlicense\",\"urls\":[\"bzz-raw://5177f7c7f163c4963ee47049f621fee17d65802a6125dfbe4a88c69d2d67fc7b\",\"dweb:/ipfs/QmUNwvmSvjGfKuU9Ty8CmuYQKn1U7wS6SfzvzjA9cdsKX6\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.15+commit.e14f2714"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":@chainlink/=node_modules/@chainlink/",
+        ":@ensdomains/=node_modules/@ensdomains/",
+        ":@openzeppelin/=node_modules/@openzeppelin/",
+        ":@thirdweb-dev/=node_modules/@thirdweb-dev/",
+        ":contracts/=contracts/",
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/",
+        ":hardhat/=node_modules/hardhat/",
+        ":script/=script/",
+        ":test/=test/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "contracts/core/EscrowRegistry.sol": "EscrowRegistry"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "contracts/core/EscrowRegistry.sol": {
+        "keccak256": "0x5297f68f6634777c25862ec9d292057e230e31010eb877bb9c235e99210a5a5f",
+        "urls": [
+          "bzz-raw://5177f7c7f163c4963ee47049f621fee17d65802a6125dfbe4a88c69d2d67fc7b",
+          "dweb:/ipfs/QmUNwvmSvjGfKuU9Ty8CmuYQKn1U7wS6SfzvzjA9cdsKX6"
+        ],
+        "license": "Unlicense"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "contracts/core/EscrowRegistry.sol",
+    "id": 1203,
+    "exportedSymbols": {
+      "EscrowRegistry": [
+        1202
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "37:79:2",
+    "nodes": [
+      {
+        "id": 1197,
+        "nodeType": "PragmaDirective",
+        "src": "37:23:2",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ]
+      },
+      {
+        "id": 1202,
+        "nodeType": "ContractDefinition",
+        "src": "62:54:2",
+        "nodes": [
+          {
+            "id": 1201,
+            "nodeType": "FunctionDefinition",
+            "src": "92:22:2",
+            "body": {
+              "id": 1200,
+              "nodeType": "Block",
+              "src": "106:8:2",
+              "statements": []
+            },
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "parameters": {
+              "id": 1198,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "103:2:2"
+            },
+            "returnParameters": {
+              "id": 1199,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "106:0:2"
+            },
+            "scope": 1202,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "EscrowRegistry",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          1202
+        ],
+        "name": "EscrowRegistry",
+        "nameLocation": "71:14:2",
+        "scope": 1203,
+        "usedErrors": []
+      }
+    ],
+    "license": "Unlicense"
+  },
+  "id": 2
+}
