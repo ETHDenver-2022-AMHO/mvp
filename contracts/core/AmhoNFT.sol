@@ -1,8 +1,8 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@thirdweb-dev/contracts/base/ERC721Base.sol";
-import "./Escrow.sol";
+import "./EscrowRegistry.sol";
 
 contract AmhoNFT is ERC721Base {
     uint256 private _tokenIds = 0;
@@ -27,7 +27,7 @@ contract AmhoNFT is ERC721Base {
     }
 
     address payable escrowContractAddress;
-    Escrow escrowContract;
+    EscrowRegistry escrowContract;
 
     mapping(uint256 => NFTState) idToNFTState;
 
@@ -39,7 +39,7 @@ contract AmhoNFT is ERC721Base {
         address payable _escrowContractAddress
     ) ERC721Base(_name, _symbol, _royaltySplitRecipient, _royaltySplitBps) {
         escrowContractAddress = payable(_escrowContractAddress);
-        escrowContract = Escrow(_escrowContractAddress);
+        escrowContract = EscrowRegistry(_escrowContractAddress);
     }
 
     function getCurrentTokenId() public view returns (uint256) {
@@ -132,7 +132,7 @@ contract AmhoNFT is ERC721Base {
         uint256 id = _tokenIds;
 
         setApprovalForAll(escrowContractAddress, true);
-        _mint(msg.sender, id);
+        mintTo(msg.sender, tokenURI);
 
         idToNFTState[id] = NFTState({
             price: _price,

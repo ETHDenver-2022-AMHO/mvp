@@ -4,12 +4,6 @@ pragma solidity >=0.8.0;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 
-/// @title VRF
-/// @author Mehdi R.
-/// @notice You can use this contract for only the most basic simulation
-/// @dev All function calls are currently implemented without side effects
-/// @custom:experimental This is only for testing use.
-
 contract VRFConsumer is VRFConsumerBase {
     bytes32 internal keyHash;
     uint256 internal fee;

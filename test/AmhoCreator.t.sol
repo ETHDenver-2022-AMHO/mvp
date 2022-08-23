@@ -5,19 +5,19 @@ import "forge-std/Test.sol";
 import "forge-std/console.sol";
 import "forge-std/Vm.sol";
 
-import {Escrow} from "contracts/core/Escrow.sol";
+import {EscrowRegistry} from "contracts/core/EscrowRegistry.sol";
 import {AmhoNFT} from "contracts/core/AmhoNFT.sol";
 import {MockToken} from "contracts/mock/MockToken.sol";
 import {Utils} from "contracts/mock/MockUtils.sol";
 
 contract BaseSetup is Test {
-    Escrow internal escrow;
+    EscrowRegistry internal escrow;
     AmhoNFT internal amho;
     MockToken internal dummyToken;
 
     function setUp() public virtual {
         // Setup AMHO address and token address
-        escrow = new Escrow();
+        escrow = new EscrowRegistry();
         amho = new AmhoNFT("Amho", "BAG", address(0x0), 10, payable(address(escrow)));
         dummyToken = new MockToken();
     }

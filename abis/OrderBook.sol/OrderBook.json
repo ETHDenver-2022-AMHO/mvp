@@ -1,0 +1,1237 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "OrderCancelled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "reason",
+          "type": "string"
+        }
+      ],
+      "name": "OrderDispute",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "OrderInitiated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "reason",
+          "type": "string"
+        }
+      ],
+      "name": "OrderOverride",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "disputer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "orderNonce",
+          "type": "uint256"
+        }
+      ],
+      "name": "disputeOrderById",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "orderNonce",
+          "type": "uint256"
+        }
+      ],
+      "name": "getOrderById",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getOrderStatus",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "orderHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "reason",
+          "type": "string"
+        }
+      ],
+      "name": "overrideOrderDispute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x608060405234801561001057600080fd5b50610493806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c806346423aa71461005157806364b4a40d146100665780638657a00114610079578063acc0bce11461008c575b600080fd5b61006461005f3660046102d4565b61009f565b005b6100646100743660046102ec565b610104565b6100646100873660046102a2565b61016c565b61006461009a366004610261565b6101d7565b6000546040516346423aa760e01b81526001600160a01b03909116906346423aa7906100cf9084906004016103e3565b600060405180830381600087803b1580156100e957600080fd5b505af11580156100fd573d6000803e3d6000fd5b5050505050565b6000546040516364b4a40d60e01b81526001600160a01b03909116906364b4a40d9061013690859085906004016103ec565b600060405180830381600087803b15801561015057600080fd5b505af1158015610164573d6000803e3d6000fd5b505050505050565b600054604051638657a00160e01b81526001600160a01b0390911690638657a001906101a0908690869086906004016103c2565b600060405180830381600087803b1580156101ba57600080fd5b505af11580156101ce573d6000803e3d6000fd5b50505050505050565b60005460405163acc0bce160e01b81526001600160a01b039091169063acc0bce19061020d908790879087908790600401610399565b600060405180830381600087803b15801561022757600080fd5b505af115801561023b573d6000803e3d6000fd5b5050505050505050565b80356001600160a01b038116811461025c57600080fd5b919050565b60008060008060808587031215610276578384fd5b61027f85610245565b935061028d60208601610245565b93969395505050506040820135916060013590565b6000806000606084860312156102b6578283fd5b6102bf84610245565b95602085013595506040909401359392505050565b6000602082840312156102e5578081fd5b5035919050565b600080604083850312156102fe578182fd5b8235915060208084013567ffffffffffffffff8082111561031d578384fd5b818601915086601f830112610330578384fd5b81358181111561034257610342610447565b604051601f8201601f191681018501838111828210171561036557610365610447565b604052818152838201850189101561037b578586fd5b81858501868301378585838301015280955050505050509250929050565b6001600160a01b0394851681529290931660208301526040820152606081019190915260800190565b6001600160a01b039390931683526020830191909152604082015260600190565b90815260200190565b600083825260206040818401528351806040850152825b8181101561041f57858101830151858201606001528201610403565b818111156104305783606083870101525b50601f01601f191692909201606001949350505050565b634e487b7160e01b600052604160045260246000fdfea26469706673582212207ba12387b7acec88585738a9dbd96bab35a5a212fb04b21cf73b41a45de0b0fc64736f6c63430008000033",
+    "sourceMap": "96:749:0:-:0;;;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c806346423aa71461005157806364b4a40d146100665780638657a00114610079578063acc0bce11461008c575b600080fd5b61006461005f3660046102d4565b61009f565b005b6100646100743660046102ec565b610104565b6100646100873660046102a2565b61016c565b61006461009a366004610261565b6101d7565b6000546040516346423aa760e01b81526001600160a01b03909116906346423aa7906100cf9084906004016103e3565b600060405180830381600087803b1580156100e957600080fd5b505af11580156100fd573d6000803e3d6000fd5b5050505050565b6000546040516364b4a40d60e01b81526001600160a01b03909116906364b4a40d9061013690859085906004016103ec565b600060405180830381600087803b15801561015057600080fd5b505af1158015610164573d6000803e3d6000fd5b505050505050565b600054604051638657a00160e01b81526001600160a01b0390911690638657a001906101a0908690869086906004016103c2565b600060405180830381600087803b1580156101ba57600080fd5b505af11580156101ce573d6000803e3d6000fd5b50505050505050565b60005460405163acc0bce160e01b81526001600160a01b039091169063acc0bce19061020d908790879087908790600401610399565b600060405180830381600087803b15801561022757600080fd5b505af115801561023b573d6000803e3d6000fd5b5050505050505050565b80356001600160a01b038116811461025c57600080fd5b919050565b60008060008060808587031215610276578384fd5b61027f85610245565b935061028d60208601610245565b93969395505050506040820135916060013590565b6000806000606084860312156102b6578283fd5b6102bf84610245565b95602085013595506040909401359392505050565b6000602082840312156102e5578081fd5b5035919050565b600080604083850312156102fe578182fd5b8235915060208084013567ffffffffffffffff8082111561031d578384fd5b818601915086601f830112610330578384fd5b81358181111561034257610342610447565b604051601f8201601f191681018501838111828210171561036557610365610447565b604052818152838201850189101561037b578586fd5b81858501868301378585838301015280955050505050509250929050565b6001600160a01b0394851681529290931660208301526040820152606081019190915260800190565b6001600160a01b039390931683526020830191909152604082015260600190565b90815260200190565b600083825260206040818401528351806040850152825b8181101561041f57858101830151858201606001528201610403565b818111156104305783606083870101525b50601f01601f191692909201606001949350505050565b634e487b7160e01b600052604160045260246000fdfea26469706673582212207ba12387b7acec88585738a9dbd96bab35a5a212fb04b21cf73b41a45de0b0fc64736f6c63430008000033",
+    "sourceMap": "96:749:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;356:123;;;;;;:::i;:::-;;:::i;:::-;;678:165;;;;;;:::i;:::-;;:::i;485:183::-;;;;;;:::i;:::-;;:::i;158:193::-;;;;;;:::i;:::-;;:::i;356:123::-;436:9;;425:47;;-1:-1:-1;;;425:47:0;;-1:-1:-1;;;;;436:9:0;;;;425:36;;:47;;462:9;;425:47;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;356:123;:::o;678:165::-;786:9;;775:61;;-1:-1:-1;;;775:61:0;;-1:-1:-1;;;;;786:9:0;;;;775:42;;:61;;818:9;;829:6;;775:61;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;678:165;;:::o;485:183::-;603:9;;592:69;;-1:-1:-1;;;592:69:0;;-1:-1:-1;;;;;603:9:0;;;;592:38;;:69;;631:8;;641:7;;650:10;;592:69;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;485:183;;;:::o;158:193::-;285:9;;274:70;;-1:-1:-1;;;274:70:0;;-1:-1:-1;;;;;285:9:0;;;;274:34;;:70;;309:5;;316:6;;324:7;;333:10;;274:70;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;158:193;;;;:::o;14:175:2:-;84:20;;-1:-1:-1;;;;;133:31:2;;123:42;;113:2;;179:1;176;169:12;113:2;65:124;;;:::o;194:411::-;;;;;357:3;345:9;336:7;332:23;328:33;325:2;;;379:6;371;364:22;325:2;407:31;428:9;407:31;:::i;:::-;397:41;;457:40;493:2;482:9;478:18;457:40;:::i;:::-;315:290;;447:50;;-1:-1:-1;;;;544:2:2;529:18;;516:32;;595:2;580:18;567:32;;315:290::o;610:334::-;;;;756:2;744:9;735:7;731:23;727:32;724:2;;;777:6;769;762:22;724:2;805:31;826:9;805:31;:::i;:::-;795:41;883:2;868:18;;855:32;;-1:-1:-1;934:2:2;919:18;;;906:32;;714:230;-1:-1:-1;;;714:230:2:o;949:190::-;;1061:2;1049:9;1040:7;1036:23;1032:32;1029:2;;;1082:6;1074;1067:22;1029:2;-1:-1:-1;1110:23:2;;1019:120;-1:-1:-1;1019:120:2:o;1144:1026::-;;;1283:2;1271:9;1262:7;1258:23;1254:32;1251:2;;;1304:6;1296;1289:22;1251:2;1345:9;1332:23;1322:33;;1374:2;1427;1416:9;1412:18;1399:32;1450:18;1491:2;1483:6;1480:14;1477:2;;;1512:6;1504;1497:22;1477:2;1555:6;1544:9;1540:22;1530:32;;1600:7;1593:4;1589:2;1585:13;1581:27;1571:2;;1627:6;1619;1612:22;1571:2;1668;1655:16;1690:2;1686;1683:10;1680:2;;;1696:18;;:::i;:::-;1745:2;1739:9;1814:2;1795:13;;-1:-1:-1;;1791:27:2;1779:40;;1775:49;;1839:18;;;1859:22;;;1836:46;1833:2;;;1885:18;;:::i;:::-;1921:2;1914:22;1945:18;;;1982:11;;;1978:20;;1975:33;-1:-1:-1;1972:2:2;;;2026:6;2018;2011:22;1972:2;2087;2082;2078;2074:11;2069:2;2061:6;2057:15;2044:46;2132:6;2127:2;2122;2114:6;2110:15;2106:24;2099:40;2158:6;2148:16;;;;;;;1241:929;;;;;:::o;2175:447::-;-1:-1:-1;;;;;2462:15:2;;;2444:34;;2514:15;;;;2509:2;2494:18;;2487:43;2561:2;2546:18;;2539:34;2604:2;2589:18;;2582:34;;;;2393:3;2378:19;;2360:262::o;2627:345::-;-1:-1:-1;;;;;2847:32:2;;;;2829:51;;2911:2;2896:18;;2889:34;;;;2954:2;2939:18;;2932:34;2817:2;2802:18;;2784:188::o;2977:177::-;3123:25;;;3111:2;3096:18;;3078:76::o;3159:674::-;;3336:6;3325:9;3318:25;3362:2;3400;3395;3384:9;3380:18;3373:30;3432:6;3426:13;3475:6;3470:2;3459:9;3455:18;3448:34;3500:4;3513:140;3527:6;3524:1;3521:13;3513:140;;;3622:14;;;3618:23;;3612:30;3588:17;;;3607:2;3584:26;3577:66;3542:10;;3513:140;;;3671:6;3668:1;3665:13;3662:2;;;3741:4;3736:2;3727:6;3716:9;3712:22;3708:31;3701:45;3662:2;-1:-1:-1;3817:2:2;3796:15;-1:-1:-1;;3792:29:2;3777:45;;;;3824:2;3773:54;;3308:525;-1:-1:-1;;;;3308:525:2:o;3838:127::-;3899:10;3894:3;3890:20;3887:1;3880:31;3930:4;3927:1;3920:15;3954:4;3951:1;3944:15",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "disputeOrderById(address,uint256,uint256)": "8657a001",
+    "getOrderById(address,address,uint256,uint256)": "acc0bce1",
+    "getOrderStatus(bytes32)": "46423aa7",
+    "overrideOrderDispute(bytes32,string)": "64b4a40d"
+  },
+  "ast": {
+    "absolutePath": "contracts/core/OrderBook.sol",
+    "id": 82,
+    "exportedSymbols": {
+      "IOrderBook": [
+        144
+      ],
+      "OrderBook": [
+        81
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "31:814:0",
+    "nodes": [
+      {
+        "id": 1,
+        "nodeType": "PragmaDirective",
+        "src": "31:23:0",
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ]
+      },
+      {
+        "id": 2,
+        "nodeType": "ImportDirective",
+        "src": "56:38:0",
+        "absolutePath": "contracts/interfaces/IOrderBook.sol",
+        "file": "../interfaces/IOrderBook.sol",
+        "scope": 82,
+        "sourceUnit": 145,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 81,
+        "nodeType": "ContractDefinition",
+        "src": "96:749:0",
+        "nodes": [
+          {
+            "id": 6,
+            "nodeType": "VariableDeclaration",
+            "src": "135:17:0",
+            "constant": false,
+            "mutability": "mutable",
+            "name": "orderBook",
+            "scope": 81,
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 5,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "135:7:0",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "id": 29,
+            "nodeType": "FunctionDefinition",
+            "src": "158:193:0",
+            "body": {
+              "id": 28,
+              "nodeType": "Block",
+              "src": "264:87:0",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 22,
+                        "name": "buyer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 8,
+                        "src": "309:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 23,
+                        "name": "seller",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 10,
+                        "src": "316:6:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 24,
+                        "name": "tokenId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 12,
+                        "src": "324:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 25,
+                        "name": "orderNonce",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 14,
+                        "src": "333:10:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [
+                          {
+                            "id": 19,
+                            "name": "orderBook",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6,
+                            "src": "285:9:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "id": 18,
+                          "name": "IOrderBook",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 144,
+                          "src": "274:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_IOrderBook_$144_$",
+                            "typeString": "type(contract IOrderBook)"
+                          }
+                        },
+                        "id": 20,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "274:21:0",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IOrderBook_$144",
+                          "typeString": "contract IOrderBook"
+                        }
+                      },
+                      "id": 21,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getOrderById",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 122,
+                      "src": "274:34:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,address,uint256,uint256) external"
+                      }
+                    },
+                    "id": 26,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "274:70:0",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 27,
+                  "nodeType": "ExpressionStatement",
+                  "src": "274:70:0"
+                }
+              ]
+            },
+            "baseFunctions": [
+              122
+            ],
+            "functionSelector": "acc0bce1",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getOrderById",
+            "overrides": {
+              "id": 16,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "248:8:0"
+            },
+            "parameters": {
+              "id": 15,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8,
+                  "mutability": "mutable",
+                  "name": "buyer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "180:13:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "180:7:0",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 10,
+                  "mutability": "mutable",
+                  "name": "seller",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "195:14:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 9,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "195:7:0",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 12,
+                  "mutability": "mutable",
+                  "name": "tokenId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "211:15:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 11,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "211:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 14,
+                  "mutability": "mutable",
+                  "name": "orderNonce",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 29,
+                  "src": "228:18:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 13,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "228:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "179:68:0"
+            },
+            "returnParameters": {
+              "id": 17,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "264:0:0"
+            },
+            "scope": 81,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 43,
+            "nodeType": "FunctionDefinition",
+            "src": "356:123:0",
+            "body": {
+              "id": 42,
+              "nodeType": "Block",
+              "src": "415:64:0",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 39,
+                        "name": "orderHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 31,
+                        "src": "462:9:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [
+                          {
+                            "id": 36,
+                            "name": "orderBook",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6,
+                            "src": "436:9:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "id": 35,
+                          "name": "IOrderBook",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 144,
+                          "src": "425:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_IOrderBook_$144_$",
+                            "typeString": "type(contract IOrderBook)"
+                          }
+                        },
+                        "id": 37,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "425:21:0",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IOrderBook_$144",
+                          "typeString": "contract IOrderBook"
+                        }
+                      },
+                      "id": 38,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "getOrderStatus",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 127,
+                      "src": "425:36:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_bytes32_$returns$__$",
+                        "typeString": "function (bytes32) external"
+                      }
+                    },
+                    "id": 40,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "425:47:0",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 41,
+                  "nodeType": "ExpressionStatement",
+                  "src": "425:47:0"
+                }
+              ]
+            },
+            "baseFunctions": [
+              127
+            ],
+            "functionSelector": "46423aa7",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getOrderStatus",
+            "overrides": {
+              "id": 33,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "399:8:0"
+            },
+            "parameters": {
+              "id": 32,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 31,
+                  "mutability": "mutable",
+                  "name": "orderHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 43,
+                  "src": "380:17:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 30,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "380:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "379:19:0"
+            },
+            "returnParameters": {
+              "id": 34,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "415:0:0"
+            },
+            "scope": 81,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 63,
+            "nodeType": "FunctionDefinition",
+            "src": "485:183:0",
+            "body": {
+              "id": 62,
+              "nodeType": "Block",
+              "src": "582:86:0",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 57,
+                        "name": "disputer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 45,
+                        "src": "631:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 58,
+                        "name": "tokenId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 47,
+                        "src": "641:7:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 59,
+                        "name": "orderNonce",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 49,
+                        "src": "650:10:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [
+                          {
+                            "id": 54,
+                            "name": "orderBook",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6,
+                            "src": "603:9:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "id": 53,
+                          "name": "IOrderBook",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 144,
+                          "src": "592:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_IOrderBook_$144_$",
+                            "typeString": "type(contract IOrderBook)"
+                          }
+                        },
+                        "id": 55,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "592:21:0",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IOrderBook_$144",
+                          "typeString": "contract IOrderBook"
+                        }
+                      },
+                      "id": 56,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "disputeOrderById",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 136,
+                      "src": "592:38:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,uint256,uint256) external"
+                      }
+                    },
+                    "id": 60,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "592:69:0",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 61,
+                  "nodeType": "ExpressionStatement",
+                  "src": "592:69:0"
+                }
+              ]
+            },
+            "baseFunctions": [
+              136
+            ],
+            "functionSelector": "8657a001",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "disputeOrderById",
+            "overrides": {
+              "id": 51,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "566:8:0"
+            },
+            "parameters": {
+              "id": 50,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 45,
+                  "mutability": "mutable",
+                  "name": "disputer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 63,
+                  "src": "511:16:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "511:7:0",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 47,
+                  "mutability": "mutable",
+                  "name": "tokenId",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 63,
+                  "src": "529:15:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 46,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "529:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 49,
+                  "mutability": "mutable",
+                  "name": "orderNonce",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 63,
+                  "src": "546:18:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 48,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "546:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "510:55:0"
+            },
+            "returnParameters": {
+              "id": 52,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "582:0:0"
+            },
+            "scope": 81,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "id": 80,
+            "nodeType": "FunctionDefinition",
+            "src": "678:165:0",
+            "body": {
+              "id": 79,
+              "nodeType": "Block",
+              "src": "765:78:0",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 75,
+                        "name": "orderHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 65,
+                        "src": "818:9:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "id": 76,
+                        "name": "reason",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 67,
+                        "src": "829:6:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        },
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      ],
+                      "expression": {
+                        "arguments": [
+                          {
+                            "id": 72,
+                            "name": "orderBook",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 6,
+                            "src": "786:9:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          ],
+                          "id": 71,
+                          "name": "IOrderBook",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 144,
+                          "src": "775:10:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_contract$_IOrderBook_$144_$",
+                            "typeString": "type(contract IOrderBook)"
+                          }
+                        },
+                        "id": 73,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "775:21:0",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IOrderBook_$144",
+                          "typeString": "contract IOrderBook"
+                        }
+                      },
+                      "id": 74,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "overrideOrderDispute",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 143,
+                      "src": "775:42:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_bytes32_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bytes32,string memory) external"
+                      }
+                    },
+                    "id": 77,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "775:61:0",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 78,
+                  "nodeType": "ExpressionStatement",
+                  "src": "775:61:0"
+                }
+              ]
+            },
+            "baseFunctions": [
+              143
+            ],
+            "functionSelector": "64b4a40d",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "overrideOrderDispute",
+            "overrides": {
+              "id": 69,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "749:8:0"
+            },
+            "parameters": {
+              "id": 68,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 65,
+                  "mutability": "mutable",
+                  "name": "orderHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 80,
+                  "src": "708:17:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 64,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "708:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 67,
+                  "mutability": "mutable",
+                  "name": "reason",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 80,
+                  "src": "727:20:0",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 66,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "727:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "707:41:0"
+            },
+            "returnParameters": {
+              "id": 70,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "765:0:0"
+            },
+            "scope": 81,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 3,
+              "name": "IOrderBook",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 144,
+              "src": "118:10:0"
+            },
+            "id": 4,
+            "nodeType": "InheritanceSpecifier",
+            "src": "118:10:0"
+          }
+        ],
+        "contractDependencies": [
+          144
+        ],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "linearizedBaseContracts": [
+          81,
+          144
+        ],
+        "name": "OrderBook",
+        "scope": 82
+      }
+    ],
+    "license": "MIT"
+  },
+  "id": 0
+}
