@@ -6,6 +6,7 @@ remappings = [
     '@chainlink/=node_modules/@chainlink/',
     '@ensdomains/=node_modules/@ensdomains/',
     '@openzeppelin/=node_modules/@openzeppelin/',
+    '@thirdweb-dev/=node_modules/@thirdweb-dev/',
     'hardhat/=node_modules/hardhat/',
 ]
 

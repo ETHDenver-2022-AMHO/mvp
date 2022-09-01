@@ -44,6 +44,7 @@ typechain
 #Hardhat files
 cache
 artifacts
+abis
 
 yarn-error.log*
 package-lock.json
