@@ -58,22 +58,22 @@
   },
   "ast": {
     "absolutePath": "contracts/test/IProxyAdmin.sol",
-    "id": 1871,
+    "id": 1693,
     "exportedSymbols": {
       "ProxyAdminInterface": [
-        1870
+        1692
       ],
       "TransparentUpgradeableProxy": [
-        24994
+        24550
       ]
     },
     "nodeType": "SourceUnit",
-    "src": "38:386:8",
+    "src": "38:386:5",
     "nodes": [
       {
-        "id": 1849,
+        "id": 1671,
         "nodeType": "PragmaDirective",
-        "src": "38:24:8",
+        "src": "38:24:5",
         "literals": [
           "solidity",
           ">=",
@@ -82,23 +82,23 @@
         ]
       },
       {
-        "id": 1851,
+        "id": 1673,
         "nodeType": "ImportDirective",
-        "src": "64:118:8",
+        "src": "64:118:5",
         "absolutePath": "node_modules/@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
         "file": "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 1871,
-        "sourceUnit": 24995,
+        "scope": 1693,
+        "sourceUnit": 24551,
         "symbolAliases": [
           {
             "foreign": {
-              "id": 1850,
+              "id": 1672,
               "name": "TransparentUpgradeableProxy",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 24994,
-              "src": "72:27:8",
+              "referencedDeclaration": 24550,
+              "src": "72:27:5",
               "typeDescriptions": {}
             },
             "nameLocation": "-1:-1:-1"
@@ -107,53 +107,53 @@
         "unitAlias": ""
       },
       {
-        "id": 1870,
+        "id": 1692,
         "nodeType": "ContractDefinition",
-        "src": "184:239:8",
+        "src": "184:239:5",
         "nodes": [
           {
-            "id": 1861,
+            "id": 1683,
             "nodeType": "FunctionDefinition",
-            "src": "220:111:8",
+            "src": "220:111:5",
             "functionSelector": "9623609d",
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "upgradeAndCall",
-            "nameLocation": "229:14:8",
+            "nameLocation": "229:14:5",
             "parameters": {
-              "id": 1859,
+              "id": 1681,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1854,
+                  "id": 1676,
                   "mutability": "mutable",
                   "name": "proxy",
-                  "nameLocation": "272:5:8",
+                  "nameLocation": "272:5:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1861,
-                  "src": "244:33:8",
+                  "scope": 1683,
+                  "src": "244:33:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24994",
+                    "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24550",
                     "typeString": "contract TransparentUpgradeableProxy"
                   },
                   "typeName": {
-                    "id": 1853,
+                    "id": 1675,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1852,
+                      "id": 1674,
                       "name": "TransparentUpgradeableProxy",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 24994,
-                      "src": "244:27:8"
+                      "referencedDeclaration": 24550,
+                      "src": "244:27:5"
                     },
-                    "referencedDeclaration": 24994,
-                    "src": "244:27:8",
+                    "referencedDeclaration": 24550,
+                    "src": "244:27:5",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24994",
+                      "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24550",
                       "typeString": "contract TransparentUpgradeableProxy"
                     }
                   },
@@ -161,13 +161,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1856,
+                  "id": 1678,
                   "mutability": "mutable",
                   "name": "implementation",
-                  "nameLocation": "287:14:8",
+                  "nameLocation": "287:14:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1861,
-                  "src": "279:22:8",
+                  "scope": 1683,
+                  "src": "279:22:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -175,10 +175,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1855,
+                    "id": 1677,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "279:7:8",
+                    "src": "279:7:5",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -189,13 +189,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1858,
+                  "id": 1680,
                   "mutability": "mutable",
                   "name": "data",
-                  "nameLocation": "316:4:8",
+                  "nameLocation": "316:4:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1861,
-                  "src": "303:17:8",
+                  "scope": 1683,
+                  "src": "303:17:5",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -203,10 +203,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-                    "id": 1857,
+                    "id": 1679,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "303:5:8",
+                    "src": "303:5:5",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -215,62 +215,62 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "243:78:8"
+              "src": "243:78:5"
             },
             "returnParameters": {
-              "id": 1860,
+              "id": 1682,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "330:0:8"
+              "src": "330:0:5"
             },
-            "scope": 1870,
+            "scope": 1692,
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
-            "id": 1869,
+            "id": 1691,
             "nodeType": "FunctionDefinition",
-            "src": "336:85:8",
+            "src": "336:85:5",
             "functionSelector": "99a88ec4",
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "upgrade",
-            "nameLocation": "345:7:8",
+            "nameLocation": "345:7:5",
             "parameters": {
-              "id": 1867,
+              "id": 1689,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1864,
+                  "id": 1686,
                   "mutability": "mutable",
                   "name": "proxy",
-                  "nameLocation": "381:5:8",
+                  "nameLocation": "381:5:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1869,
-                  "src": "353:33:8",
+                  "scope": 1691,
+                  "src": "353:33:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24994",
+                    "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24550",
                     "typeString": "contract TransparentUpgradeableProxy"
                   },
                   "typeName": {
-                    "id": 1863,
+                    "id": 1685,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 1862,
+                      "id": 1684,
                       "name": "TransparentUpgradeableProxy",
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 24994,
-                      "src": "353:27:8"
+                      "referencedDeclaration": 24550,
+                      "src": "353:27:5"
                     },
-                    "referencedDeclaration": 24994,
-                    "src": "353:27:8",
+                    "referencedDeclaration": 24550,
+                    "src": "353:27:5",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24994",
+                      "typeIdentifier": "t_contract$_TransparentUpgradeableProxy_$24550",
                       "typeString": "contract TransparentUpgradeableProxy"
                     }
                   },
@@ -278,13 +278,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1866,
+                  "id": 1688,
                   "mutability": "mutable",
                   "name": "implementation",
-                  "nameLocation": "396:14:8",
+                  "nameLocation": "396:14:5",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1869,
-                  "src": "388:22:8",
+                  "scope": 1691,
+                  "src": "388:22:5",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -292,10 +292,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1865,
+                    "id": 1687,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "388:7:8",
+                    "src": "388:7:5",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -305,15 +305,15 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "352:59:8"
+              "src": "352:59:5"
             },
             "returnParameters": {
-              "id": 1868,
+              "id": 1690,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "420:0:8"
+              "src": "420:0:5"
             },
-            "scope": 1870,
+            "scope": 1692,
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -326,15 +326,15 @@
         "contractKind": "interface",
         "fullyImplemented": false,
         "linearizedBaseContracts": [
-          1870
+          1692
         ],
         "name": "ProxyAdminInterface",
-        "nameLocation": "194:19:8",
-        "scope": 1871,
+        "nameLocation": "194:19:5",
+        "scope": 1693,
         "usedErrors": []
       }
     ],
     "license": "Unlicense"
   },
-  "id": 8
+  "id": 5
 }

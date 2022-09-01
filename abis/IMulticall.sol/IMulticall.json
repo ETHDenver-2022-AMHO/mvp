@@ -35,19 +35,19 @@
   },
   "ast": {
     "absolutePath": "node_modules/@thirdweb-dev/contracts/extension/interface/IMulticall.sol",
-    "id": 28685,
+    "id": 26302,
     "exportedSymbols": {
       "IMulticall": [
-        28684
+        26301
       ]
     },
     "nodeType": "SourceUnit",
-    "src": "103:359:54",
+    "src": "103:359:32",
     "nodes": [
       {
-        "id": 28672,
+        "id": 26289,
         "nodeType": "PragmaDirective",
-        "src": "103:23:54",
+        "src": "103:23:32",
         "literals": [
           "solidity",
           "^",
@@ -56,18 +56,18 @@
         ]
       },
       {
-        "id": 28684,
+        "id": 26301,
         "nodeType": "ContractDefinition",
-        "src": "254:207:54",
+        "src": "254:207:32",
         "nodes": [
           {
-            "id": 28683,
+            "id": 26300,
             "nodeType": "FunctionDefinition",
-            "src": "375:84:54",
+            "src": "375:84:32",
             "documentation": {
-              "id": 28674,
+              "id": 26291,
               "nodeType": "StructuredDocumentation",
-              "src": "281:89:54",
+              "src": "281:89:32",
               "text": " @dev Receives and executes a batch of function calls on this contract."
             },
             "functionSelector": "ac9650d8",
@@ -75,20 +75,20 @@
             "kind": "function",
             "modifiers": [],
             "name": "multicall",
-            "nameLocation": "384:9:54",
+            "nameLocation": "384:9:32",
             "parameters": {
-              "id": 28678,
+              "id": 26295,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 28677,
+                  "id": 26294,
                   "mutability": "mutable",
                   "name": "data",
-                  "nameLocation": "411:4:54",
+                  "nameLocation": "411:4:32",
                   "nodeType": "VariableDeclaration",
-                  "scope": 28683,
-                  "src": "394:21:54",
+                  "scope": 26300,
+                  "src": "394:21:32",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -97,18 +97,18 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 28675,
+                      "id": 26292,
                       "name": "bytes",
                       "nodeType": "ElementaryTypeName",
-                      "src": "394:5:54",
+                      "src": "394:5:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes_storage_ptr",
                         "typeString": "bytes"
                       }
                     },
-                    "id": 28676,
+                    "id": 26293,
                     "nodeType": "ArrayTypeName",
-                    "src": "394:7:54",
+                    "src": "394:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes_storage_$dyn_storage_ptr",
                       "typeString": "bytes[]"
@@ -117,21 +117,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "393:23:54"
+              "src": "393:23:32"
             },
             "returnParameters": {
-              "id": 28682,
+              "id": 26299,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 28681,
+                  "id": 26298,
                   "mutability": "mutable",
                   "name": "results",
-                  "nameLocation": "450:7:54",
+                  "nameLocation": "450:7:32",
                   "nodeType": "VariableDeclaration",
-                  "scope": 28683,
-                  "src": "435:22:54",
+                  "scope": 26300,
+                  "src": "435:22:32",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -140,18 +140,18 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 28679,
+                      "id": 26296,
                       "name": "bytes",
                       "nodeType": "ElementaryTypeName",
-                      "src": "435:5:54",
+                      "src": "435:5:32",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bytes_storage_ptr",
                         "typeString": "bytes"
                       }
                     },
-                    "id": 28680,
+                    "id": 26297,
                     "nodeType": "ArrayTypeName",
-                    "src": "435:7:54",
+                    "src": "435:7:32",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_bytes_storage_$dyn_storage_ptr",
                       "typeString": "bytes[]"
@@ -160,9 +160,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "434:24:54"
+              "src": "434:24:32"
             },
-            "scope": 28684,
+            "scope": 26301,
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
@@ -174,22 +174,22 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 28673,
+          "id": 26290,
           "nodeType": "StructuredDocumentation",
-          "src": "128:125:54",
+          "src": "128:125:32",
           "text": " @dev Provides a function to batch together multiple calls in a single external call.\n _Available since v4.1._"
         },
         "fullyImplemented": false,
         "linearizedBaseContracts": [
-          28684
+          26301
         ],
         "name": "IMulticall",
-        "nameLocation": "264:10:54",
-        "scope": 28685,
+        "nameLocation": "264:10:32",
+        "scope": 26302,
         "usedErrors": []
       }
     ],
     "license": "MIT"
   },
-  "id": 54
+  "id": 32
 }

@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 import "./AmhoNFT.sol";
+import "forge-std/console.sol";
+import "@thirdweb-dev/contracts/eip/interface/IERC721A.sol";
 import "@thirdweb-dev/contracts/interfaces/token/ITokenERC721.sol";
 import "@thirdweb-dev/contracts/interfaces/token/ITokenERC20.sol";
 
@@ -81,13 +83,13 @@ contract EscrowRegistry {
     {
         require(addressSet, "Addresses not set");
 
-        address seller = ITokenERC721(amho).ownerOf(_tokenId);
+        address seller = IERC721A(amho).ownerOf(_tokenId);
         EscrowOrder storage order = escrowOrderById[_tokenId];
 
         order.seller = payable(from);
         order.status = EscrowOrderState.DEPOSITED_NFT;
 
-        ITokenERC721(amho).transferFrom(payable(from), address(this), _tokenId);
+        IERC721A(amho).transferFrom(payable(from), address(this), _tokenId);
 
         emit DepositedNFT(seller, address(amho));
 

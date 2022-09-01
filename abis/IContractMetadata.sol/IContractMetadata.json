@@ -62,19 +62,19 @@
   },
   "ast": {
     "absolutePath": "node_modules/@thirdweb-dev/contracts/extension/interface/IContractMetadata.sol",
-    "id": 28671,
+    "id": 26288,
     "exportedSymbols": {
       "IContractMetadata": [
-        28670
+        26287
       ]
     },
     "nodeType": "SourceUnit",
-    "src": "39:775:53",
+    "src": "39:775:31",
     "nodes": [
       {
-        "id": 28649,
+        "id": 26266,
         "nodeType": "PragmaDirective",
-        "src": "39:23:53",
+        "src": "39:23:31",
         "literals": [
           "solidity",
           "^",
@@ -83,18 +83,18 @@
         ]
       },
       {
-        "id": 28670,
+        "id": 26287,
         "nodeType": "ContractDefinition",
-        "src": "330:483:53",
+        "src": "330:483:31",
         "nodes": [
           {
-            "id": 28656,
+            "id": 26273,
             "nodeType": "FunctionDefinition",
-            "src": "419:61:53",
+            "src": "419:61:31",
             "documentation": {
-              "id": 28651,
+              "id": 26268,
               "nodeType": "StructuredDocumentation",
-              "src": "364:50:53",
+              "src": "364:50:31",
               "text": "@dev Returns the metadata URI of the contract."
             },
             "functionSelector": "e8a3d485",
@@ -102,26 +102,26 @@
             "kind": "function",
             "modifiers": [],
             "name": "contractURI",
-            "nameLocation": "428:11:53",
+            "nameLocation": "428:11:31",
             "parameters": {
-              "id": 28652,
+              "id": 26269,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "439:2:53"
+              "src": "439:2:31"
             },
             "returnParameters": {
-              "id": 28655,
+              "id": 26272,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 28654,
+                  "id": 26271,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 28656,
-                  "src": "465:13:53",
+                  "scope": 26273,
+                  "src": "465:13:31",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -129,10 +129,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 28653,
+                    "id": 26270,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "465:6:53",
+                    "src": "465:6:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -141,21 +141,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "464:15:53"
+              "src": "464:15:31"
             },
-            "scope": 28670,
+            "scope": 26287,
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
-            "id": 28662,
+            "id": 26279,
             "nodeType": "FunctionDefinition",
-            "src": "639:55:53",
+            "src": "639:55:31",
             "documentation": {
-              "id": 28657,
+              "id": 26274,
               "nodeType": "StructuredDocumentation",
-              "src": "486:148:53",
+              "src": "486:148:31",
               "text": "  @dev Sets contract URI for the storefront-level metadata of the contract.\n       Only module admin can call this function."
             },
             "functionSelector": "938e3d7b",
@@ -163,20 +163,20 @@
             "kind": "function",
             "modifiers": [],
             "name": "setContractURI",
-            "nameLocation": "648:14:53",
+            "nameLocation": "648:14:31",
             "parameters": {
-              "id": 28660,
+              "id": 26277,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 28659,
+                  "id": 26276,
                   "mutability": "mutable",
                   "name": "_uri",
-                  "nameLocation": "679:4:53",
+                  "nameLocation": "679:4:31",
                   "nodeType": "VariableDeclaration",
-                  "scope": 28662,
-                  "src": "663:20:53",
+                  "scope": 26279,
+                  "src": "663:20:31",
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -184,10 +184,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 28658,
+                    "id": 26275,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "663:6:53",
+                    "src": "663:6:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -196,47 +196,47 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "662:22:53"
+              "src": "662:22:31"
             },
             "returnParameters": {
-              "id": 28661,
+              "id": 26278,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "693:0:53"
+              "src": "693:0:31"
             },
-            "scope": 28670,
+            "scope": 26287,
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
-            "id": 28669,
+            "id": 26286,
             "nodeType": "EventDefinition",
-            "src": "755:56:53",
+            "src": "755:56:31",
             "anonymous": false,
             "documentation": {
-              "id": 28663,
+              "id": 26280,
               "nodeType": "StructuredDocumentation",
-              "src": "700:50:53",
+              "src": "700:50:31",
               "text": "@dev Emitted when the contract URI is updated."
             },
             "eventSelector": "c9c7c3fe08b88b4df9d4d47ef47d2c43d55c025a0ba88ca442580ed9e7348a16",
             "name": "ContractURIUpdated",
-            "nameLocation": "761:18:53",
+            "nameLocation": "761:18:31",
             "parameters": {
-              "id": 28668,
+              "id": 26285,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 28665,
+                  "id": 26282,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "prevURI",
-                  "nameLocation": "787:7:53",
+                  "nameLocation": "787:7:31",
                   "nodeType": "VariableDeclaration",
-                  "scope": 28669,
-                  "src": "780:14:53",
+                  "scope": 26286,
+                  "src": "780:14:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -244,10 +244,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 28664,
+                    "id": 26281,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "780:6:53",
+                    "src": "780:6:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -257,14 +257,14 @@
                 },
                 {
                   "constant": false,
-                  "id": 28667,
+                  "id": 26284,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "newURI",
-                  "nameLocation": "803:6:53",
+                  "nameLocation": "803:6:31",
                   "nodeType": "VariableDeclaration",
-                  "scope": 28669,
-                  "src": "796:13:53",
+                  "scope": 26286,
+                  "src": "796:13:31",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -272,10 +272,10 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 28666,
+                    "id": 26283,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "796:6:53",
+                    "src": "796:6:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -284,7 +284,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "779:31:53"
+              "src": "779:31:31"
             }
           }
         ],
@@ -294,22 +294,22 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 28650,
+          "id": 26267,
           "nodeType": "StructuredDocumentation",
-          "src": "64:264:53",
+          "src": "64:264:31",
           "text": "  Thirdweb's `ContractMetadata` is a contract extension for any base contracts. It lets you set a metadata URI\n  for you contract.\n  Additionally, `ContractMetadata` is necessary for NFT contracts that want royalties to get distributed on OpenSea."
         },
         "fullyImplemented": false,
         "linearizedBaseContracts": [
-          28670
+          26287
         ],
         "name": "IContractMetadata",
-        "nameLocation": "340:17:53",
-        "scope": 28671,
+        "nameLocation": "340:17:31",
+        "scope": 26288,
         "usedErrors": []
       }
     ],
     "license": "Apache-2.0"
   },
-  "id": 53
+  "id": 31
 }

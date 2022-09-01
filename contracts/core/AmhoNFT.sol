@@ -82,7 +82,10 @@ contract AmhoNFT is ERC721Base {
         nftState.itemState = ItemState.PENDING_INIT;
     }
 
-    function depositNftToEscrow(uint256 _tokenId, bytes32 _secret) public {
+    function depositNftToEscrow(uint256 _tokenId, bytes32 _secret) 
+        ownerMatch(_tokenId) 
+        secretMatch(_tokenId, _secret)
+    public {
         _depositNftToEscrow(_tokenId, _secret);
     }
 
@@ -92,16 +95,11 @@ contract AmhoNFT is ERC721Base {
             "NFT was not able to be deposited."
         );
 
-        require(
-            msg.sender == idToNFTState[_tokenId].currentOwner,
-            "Not the owner"
-        );
-        require(idToNFTState[_tokenId].secret == _secret, "Unauthorized");
-
         NFTState storage nftState = idToNFTState[_tokenId];
         if (nftState.currentOwner != msg.sender) {
             nftState.currentOwner = msg.sender;
         }
+
         nftState.itemState = ItemState.PENDING_TETHER;
     }
 
@@ -124,20 +122,21 @@ contract AmhoNFT is ERC721Base {
         return retTokenId;
     }
 
-    function mintToken(
+    function mintNftTo(
+        address _to,
         bytes32 secret,
         string memory tokenURI,
         uint256 _price
-    ) public payable returns (uint256) {
+    ) onlyOwner public payable returns (uint256) {
         uint256 id = _tokenIds;
 
         setApprovalForAll(escrowContractAddress, true);
-        mintTo(msg.sender, tokenURI);
+        mintTo(_to, tokenURI);
 
         idToNFTState[id] = NFTState({
             price: _price,
             tokenId: id,
-            currentOwner: msg.sender,
+            currentOwner: _to,
             nextOwner: address(0),
             itemState: ItemState.NEW,
             secret: secret
@@ -267,6 +266,16 @@ contract AmhoNFT is ERC721Base {
     modifier priceMatch(uint256 _tokenId, uint256 _amount) {
         uint256 price = getPrice(_tokenId);
         require(price == _amount, "Wrong value was sent");
+        _;
+    }
+
+    modifier ownerMatch(uint256 _tokenId) {
+        require(msg.sender == idToNFTState[_tokenId].currentOwner, "Caller is not current owner");
+        _;
+    }
+
+    modifier secretMatch(uint256 _tokenId, bytes32 _secret) {
+        require(_secret == idToNFTState[_tokenId].secret, "Unauthorized");
         _;
     }
 

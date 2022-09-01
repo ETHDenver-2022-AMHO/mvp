@@ -19,6 +19,7 @@ contract BaseSetup is Test {
         // Setup AMHO address and token address
         escrow = new EscrowRegistry();
         amho = new AmhoNFT("Amho", "BAG", address(0x0), 10, payable(address(escrow)));
+        escrow.setTokenAddresses(address(amho), address(escrow));
         dummyToken = new MockToken();
     }
 
@@ -28,30 +29,39 @@ contract BaseSetup is Test {
 }
 
 contract AmhoCreator is MockToken, BaseSetup {
+    event DepositedNFT(address indexed seller, address tokenAddress);
     function setUp() public override {
         // Setup AMHO address and token address
         BaseSetup.setUp();
-        vm.startPrank(Utils.alice);
         _mint(Utils.alice, 1000);
+        _mint(Utils.bob, 1000);
     }
 
     function testToken() public {
-        uint256 bal = balanceOf(Utils.alice);
-        console.log(bal);
+        uint256 balAlice = balanceOf(Utils.alice);
+        uint256 balBob = balanceOf(Utils.bob);
+        console.log(balAlice);
+        console.log(balBob);
     }
 
     function testTokenAddr() public {
         console.log(getTokenAddress());
     }
 
+
     // NOTE: Mint and Deposit into escrow contract
 
-    // function testMintAndDeposit() public {
-    //     string memory mockURI = Utils.mockURI;
-    //     bytes32 mockSecret = Utils.mockVrf();
-    //     vm.startPrank(Utils.bob);
-    //     uint256 tokenId = amho.mintToken(mockSecret, mockURI, 1);
-    //     address tokenOwner = amho.ownerOf(tokenId);
-    //     assertEq(tokenOwner, Utils.bob);
-    // }
+    function testMintAndDepositNft() public {
+        string memory mockURI = Utils.mockURI;
+        bytes32 mockSecret = Utils.mockVrf();
+        uint256 tokenId = amho.mintNftTo(Utils.bob, mockSecret, mockURI, 1);
+        address tokenOwner = amho.ownerOf(tokenId);
+        assertEq(tokenOwner, Utils.bob);
+
+        vm.startPrank(Utils.bob);
+        amho.approve(address(escrow), tokenId);
+        amho.depositNftToEscrow(tokenId, mockSecret);
+        vm.stopPrank();
+    }
+
 }
