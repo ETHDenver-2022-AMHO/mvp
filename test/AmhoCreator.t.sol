@@ -9,47 +9,39 @@ import {EscrowRegistry} from "contracts/core/EscrowRegistry.sol";
 import {AmhoNFT} from "contracts/core/AmhoNFT.sol";
 import {MockToken} from "contracts/mock/MockToken.sol";
 import {Utils} from "contracts/mock/MockUtils.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract BaseSetup is Test {
     EscrowRegistry internal escrow;
     AmhoNFT internal amho;
-    MockToken internal dummyToken;
+    ERC20 public dummyToken;
 
     function setUp() public virtual {
         // Setup AMHO address and token address
         escrow = new EscrowRegistry();
-        amho = new AmhoNFT("Amho", "BAG", address(0x0), 10, payable(address(escrow)));
-        escrow.setTokenAddresses(address(amho), address(escrow));
-        dummyToken = new MockToken();
+        amho = new AmhoNFT(
+            "Amho",
+            "BAG",
+            address(0x0),
+            10,
+            payable(address(escrow))
+        );
+        dummyToken = new MockToken(Utils.bob, Utils.alice);
+        escrow.setTokenAddresses(address(amho), address(dummyToken));
     }
 
-    function getTokenAddress() public returns (address) {
+    function getTokenAddress() public view returns (address) {
         return address(dummyToken);
     }
 }
 
-contract AmhoCreator is MockToken, BaseSetup {
+contract AmhoCreator is BaseSetup {
     event DepositedNFT(address indexed seller, address tokenAddress);
+
     function setUp() public override {
         // Setup AMHO address and token address
         BaseSetup.setUp();
-        _mint(Utils.alice, 1000);
-        _mint(Utils.bob, 1000);
     }
-
-    function testToken() public {
-        uint256 balAlice = balanceOf(Utils.alice);
-        uint256 balBob = balanceOf(Utils.bob);
-        console.log(balAlice);
-        console.log(balBob);
-    }
-
-    function testTokenAddr() public {
-        console.log(getTokenAddress());
-    }
-
-
-    // NOTE: Mint and Deposit into escrow contract
 
     function testMintAndDepositNft() public {
         string memory mockURI = Utils.mockURI;
@@ -64,4 +56,31 @@ contract AmhoCreator is MockToken, BaseSetup {
         vm.stopPrank();
     }
 
+    function testBalance() public {
+        address tokenAddress = BaseSetup.getTokenAddress();
+        uint256 bobBal = IERC20(tokenAddress).balanceOf(Utils.alice);
+        uint256 aliceBal = IERC20(tokenAddress).balanceOf(Utils.bob);
+        assertEq(bobBal, 1000);
+        assertEq(aliceBal, 1000);
+    }
+
+    function testMintAndDepositToken() public {
+        string memory mockURI = Utils.mockURI;
+        bytes32 mockSecret = Utils.mockVrf();
+        uint256 tokenId = amho.mintNftTo(Utils.bob, mockSecret, mockURI, 1);
+        address tokenAddress = BaseSetup.getTokenAddress();
+
+        vm.startPrank(Utils.bob);
+        amho.approve(address(escrow), tokenId);
+        amho.depositNftToEscrow(tokenId, mockSecret);
+        assertEq(amho.ownerOf(tokenId), address(escrow));
+        vm.stopPrank();
+
+        vm.startPrank(Utils.alice);
+        IERC20(tokenAddress).approve(address(escrow), 1);
+        amho.depositTokenToEscrow(tokenId, 1);
+        assertEq(IERC20(tokenAddress).balanceOf(Utils.alice), 999);
+        assertEq(IERC20(tokenAddress).balanceOf(address(escrow)), 1);
+        vm.stopPrank();
+    }
 }

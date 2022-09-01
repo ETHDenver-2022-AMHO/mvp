@@ -3,9 +3,8 @@ pragma solidity ^0.8.0;
 
 import "./AmhoNFT.sol";
 import "forge-std/console.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721A.sol";
-import "@thirdweb-dev/contracts/interfaces/token/ITokenERC721.sol";
-import "@thirdweb-dev/contracts/interfaces/token/ITokenERC20.sol";
 
 contract EscrowRegistry {
     address amho;
@@ -42,6 +41,10 @@ contract EscrowRegistry {
         addressSet = true;
     }
 
+    function getTokenAddress() public view returns(address) {
+        return token;
+    }
+
     function getEscrowOrderById(uint256 _tokenId)
         public
         view
@@ -51,6 +54,7 @@ contract EscrowRegistry {
     }
 
     function depositToken(
+        address _tokenAddress,
         address from,
         uint256 _tokenId,
         uint256 amount
@@ -67,7 +71,7 @@ contract EscrowRegistry {
             value: amount
         });
 
-        bool success = ITokenERC20(token).transferFrom(
+        bool success = IERC20(token).transferFrom(
             from,
             address(this),
             amount
@@ -107,8 +111,8 @@ contract EscrowRegistry {
         address _seller = escrowOrder.seller;
         uint256 _value = escrowOrder.value;
 
-        ITokenERC721(amho).transferFrom(address(this), _buyer, _tokenId);
-        ITokenERC20(token).transfer(_seller, _value);
+        IERC721A(amho).transferFrom(address(this), _buyer, _tokenId);
+        IERC20(token).transfer(_seller, _value);
 
         delete escrowOrderById[_tokenId];
 

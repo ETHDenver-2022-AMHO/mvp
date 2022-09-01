@@ -72,8 +72,9 @@ contract AmhoNFT is ERC721Base {
         public
         priceMatch(_tokenId, _amount)
     {
+        address _tokenAddr = escrowContract.getTokenAddress();
         require(
-            escrowContract.depositToken(msg.sender, _tokenId, _amount),
+            escrowContract.depositToken(_tokenAddr ,msg.sender, _tokenId, _amount),
             "Tokens were not able to be deposited."
         );
 

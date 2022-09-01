@@ -417,25 +417,25 @@
   },
   "ast": {
     "absolutePath": "node_modules/@thirdweb-dev/contracts/eip/interface/IERC721A.sol",
-    "id": 25593,
+    "id": 25390,
     "exportedSymbols": {
       "IERC721": [
-        25521
+        25318
       ],
       "IERC721A": [
-        25592
+        25389
       ],
       "IERC721Metadata": [
-        25616
+        25413
       ]
     },
     "nodeType": "SourceUnit",
-    "src": "84:2804:24",
+    "src": "84:2804:20",
     "nodes": [
       {
-        "id": 25523,
+        "id": 25320,
         "nodeType": "PragmaDirective",
-        "src": "84:23:24",
+        "src": "84:23:20",
         "literals": [
           "solidity",
           "^",
@@ -444,309 +444,309 @@
         ]
       },
       {
-        "id": 25524,
+        "id": 25321,
         "nodeType": "ImportDirective",
-        "src": "109:23:24",
+        "src": "109:23:20",
         "absolutePath": "node_modules/@thirdweb-dev/contracts/eip/interface/IERC721.sol",
         "file": "./IERC721.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 25593,
-        "sourceUnit": 25522,
+        "scope": 25390,
+        "sourceUnit": 25319,
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "id": 25525,
+        "id": 25322,
         "nodeType": "ImportDirective",
-        "src": "133:31:24",
+        "src": "133:31:20",
         "absolutePath": "node_modules/@thirdweb-dev/contracts/eip/interface/IERC721Metadata.sol",
         "file": "./IERC721Metadata.sol",
         "nameLocation": "-1:-1:-1",
-        "scope": 25593,
-        "sourceUnit": 25617,
+        "scope": 25390,
+        "sourceUnit": 25414,
         "symbolAliases": [],
         "unitAlias": ""
       },
       {
-        "id": 25592,
+        "id": 25389,
         "nodeType": "ContractDefinition",
-        "src": "226:2661:24",
+        "src": "226:2661:20",
         "nodes": [
           {
-            "id": 25533,
+            "id": 25330,
             "nodeType": "ErrorDefinition",
-            "src": "360:42:24",
+            "src": "360:42:20",
             "documentation": {
-              "id": 25531,
+              "id": 25328,
               "nodeType": "StructuredDocumentation",
-              "src": "279:76:24",
+              "src": "279:76:20",
               "text": " The caller must own the token or be an approved operator."
             },
             "errorSelector": "cfb3b942",
             "name": "ApprovalCallerNotOwnerNorApproved",
-            "nameLocation": "366:33:24",
+            "nameLocation": "366:33:20",
             "parameters": {
-              "id": 25532,
+              "id": 25329,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "399:2:24"
+              "src": "399:2:20"
             }
           },
           {
-            "id": 25536,
+            "id": 25333,
             "nodeType": "ErrorDefinition",
-            "src": "457:41:24",
+            "src": "457:41:20",
             "documentation": {
-              "id": 25534,
+              "id": 25331,
               "nodeType": "StructuredDocumentation",
-              "src": "408:44:24",
+              "src": "408:44:20",
               "text": " The token does not exist."
             },
             "errorSelector": "cf4700e4",
             "name": "ApprovalQueryForNonexistentToken",
-            "nameLocation": "463:32:24",
+            "nameLocation": "463:32:20",
             "parameters": {
-              "id": 25535,
+              "id": 25332,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "495:2:24"
+              "src": "495:2:20"
             }
           },
           {
-            "id": 25539,
+            "id": 25336,
             "nodeType": "ErrorDefinition",
-            "src": "575:24:24",
+            "src": "575:24:20",
             "documentation": {
-              "id": 25537,
+              "id": 25334,
               "nodeType": "StructuredDocumentation",
-              "src": "504:66:24",
+              "src": "504:66:20",
               "text": " The caller cannot approve to their own address."
             },
             "errorSelector": "b06307db",
             "name": "ApproveToCaller",
-            "nameLocation": "581:15:24",
+            "nameLocation": "581:15:20",
             "parameters": {
-              "id": 25538,
+              "id": 25335,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "596:2:24"
+              "src": "596:2:20"
             }
           },
           {
-            "id": 25542,
+            "id": 25339,
             "nodeType": "ErrorDefinition",
-            "src": "676:31:24",
+            "src": "676:31:20",
             "documentation": {
-              "id": 25540,
+              "id": 25337,
               "nodeType": "StructuredDocumentation",
-              "src": "605:66:24",
+              "src": "605:66:20",
               "text": " The caller cannot approve to the current owner."
             },
             "errorSelector": "943f7b8c",
             "name": "ApprovalToCurrentOwner",
-            "nameLocation": "682:22:24",
+            "nameLocation": "682:22:20",
             "parameters": {
-              "id": 25541,
+              "id": 25338,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "704:2:24"
+              "src": "704:2:20"
             }
           },
           {
-            "id": 25545,
+            "id": 25342,
             "nodeType": "ErrorDefinition",
-            "src": "783:35:24",
+            "src": "783:35:20",
             "documentation": {
-              "id": 25543,
+              "id": 25340,
               "nodeType": "StructuredDocumentation",
-              "src": "713:65:24",
+              "src": "713:65:20",
               "text": " Cannot query the balance for the zero address."
             },
             "errorSelector": "8f4eb604",
             "name": "BalanceQueryForZeroAddress",
-            "nameLocation": "789:26:24",
+            "nameLocation": "789:26:20",
             "parameters": {
-              "id": 25544,
+              "id": 25341,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "815:2:24"
+              "src": "815:2:20"
             }
           },
           {
-            "id": 25548,
+            "id": 25345,
             "nodeType": "ErrorDefinition",
-            "src": "880:26:24",
+            "src": "880:26:20",
             "documentation": {
-              "id": 25546,
+              "id": 25343,
               "nodeType": "StructuredDocumentation",
-              "src": "824:51:24",
+              "src": "824:51:20",
               "text": " Cannot mint to the zero address."
             },
             "errorSelector": "2e076300",
             "name": "MintToZeroAddress",
-            "nameLocation": "886:17:24",
+            "nameLocation": "886:17:20",
             "parameters": {
-              "id": 25547,
+              "id": 25344,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "903:2:24"
+              "src": "903:2:20"
             }
           },
           {
-            "id": 25551,
+            "id": 25348,
             "nodeType": "ErrorDefinition",
-            "src": "989:25:24",
+            "src": "989:25:20",
             "documentation": {
-              "id": 25549,
+              "id": 25346,
               "nodeType": "StructuredDocumentation",
-              "src": "912:72:24",
+              "src": "912:72:20",
               "text": " The quantity of tokens minted must be more than zero."
             },
             "errorSelector": "b562e8dd",
             "name": "MintZeroQuantity",
-            "nameLocation": "995:16:24",
+            "nameLocation": "995:16:20",
             "parameters": {
-              "id": 25550,
+              "id": 25347,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1011:2:24"
+              "src": "1011:2:20"
             }
           },
           {
-            "id": 25554,
+            "id": 25351,
             "nodeType": "ErrorDefinition",
-            "src": "1069:38:24",
+            "src": "1069:38:20",
             "documentation": {
-              "id": 25552,
+              "id": 25349,
               "nodeType": "StructuredDocumentation",
-              "src": "1020:44:24",
+              "src": "1020:44:20",
               "text": " The token does not exist."
             },
             "errorSelector": "df2d9b42",
             "name": "OwnerQueryForNonexistentToken",
-            "nameLocation": "1075:29:24",
+            "nameLocation": "1075:29:20",
             "parameters": {
-              "id": 25553,
+              "id": 25350,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1104:2:24"
+              "src": "1104:2:20"
             }
           },
           {
-            "id": 25557,
+            "id": 25354,
             "nodeType": "ErrorDefinition",
-            "src": "1194:42:24",
+            "src": "1194:42:20",
             "documentation": {
-              "id": 25555,
+              "id": 25352,
               "nodeType": "StructuredDocumentation",
-              "src": "1113:76:24",
+              "src": "1113:76:20",
               "text": " The caller must own the token or be an approved operator."
             },
             "errorSelector": "59c896be",
             "name": "TransferCallerNotOwnerNorApproved",
-            "nameLocation": "1200:33:24",
+            "nameLocation": "1200:33:20",
             "parameters": {
-              "id": 25556,
+              "id": 25353,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1233:2:24"
+              "src": "1233:2:20"
             }
           },
           {
-            "id": 25560,
+            "id": 25357,
             "nodeType": "ErrorDefinition",
-            "src": "1300:35:24",
+            "src": "1300:35:20",
             "documentation": {
-              "id": 25558,
+              "id": 25355,
               "nodeType": "StructuredDocumentation",
-              "src": "1242:53:24",
+              "src": "1242:53:20",
               "text": " The token must be owned by `from`."
             },
             "errorSelector": "a1148100",
             "name": "TransferFromIncorrectOwner",
-            "nameLocation": "1306:26:24",
+            "nameLocation": "1306:26:20",
             "parameters": {
-              "id": 25559,
+              "id": 25356,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1332:2:24"
+              "src": "1332:2:20"
             }
           },
           {
-            "id": 25563,
+            "id": 25360,
             "nodeType": "ErrorDefinition",
-            "src": "1455:47:24",
+            "src": "1455:47:20",
             "documentation": {
-              "id": 25561,
+              "id": 25358,
               "nodeType": "StructuredDocumentation",
-              "src": "1341:109:24",
+              "src": "1341:109:20",
               "text": " Cannot safely transfer to a contract that does not implement the ERC721Receiver interface."
             },
             "errorSelector": "d1a57ed6",
             "name": "TransferToNonERC721ReceiverImplementer",
-            "nameLocation": "1461:38:24",
+            "nameLocation": "1461:38:20",
             "parameters": {
-              "id": 25562,
+              "id": 25359,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1499:2:24"
+              "src": "1499:2:20"
             }
           },
           {
-            "id": 25566,
+            "id": 25363,
             "nodeType": "ErrorDefinition",
-            "src": "1568:30:24",
+            "src": "1568:30:20",
             "documentation": {
-              "id": 25564,
+              "id": 25361,
               "nodeType": "StructuredDocumentation",
-              "src": "1508:55:24",
+              "src": "1508:55:20",
               "text": " Cannot transfer to the zero address."
             },
             "errorSelector": "ea553b34",
             "name": "TransferToZeroAddress",
-            "nameLocation": "1574:21:24",
+            "nameLocation": "1574:21:20",
             "parameters": {
-              "id": 25565,
+              "id": 25362,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1595:2:24"
+              "src": "1595:2:20"
             }
           },
           {
-            "id": 25569,
+            "id": 25366,
             "nodeType": "ErrorDefinition",
-            "src": "1653:36:24",
+            "src": "1653:36:20",
             "documentation": {
-              "id": 25567,
+              "id": 25364,
               "nodeType": "StructuredDocumentation",
-              "src": "1604:44:24",
+              "src": "1604:44:20",
               "text": " The token does not exist."
             },
             "errorSelector": "a14c4b50",
             "name": "URIQueryForNonexistentToken",
-            "nameLocation": "1659:27:24",
+            "nameLocation": "1659:27:20",
             "parameters": {
-              "id": 25568,
+              "id": 25365,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1686:2:24"
+              "src": "1686:2:20"
             }
           },
           {
-            "id": 25576,
+            "id": 25373,
             "nodeType": "StructDefinition",
-            "src": "1753:278:24",
+            "src": "1753:278:20",
             "canonicalName": "IERC721A.TokenOwnership",
             "members": [
               {
                 "constant": false,
-                "id": 25571,
+                "id": 25368,
                 "mutability": "mutable",
                 "name": "addr",
-                "nameLocation": "1830:4:24",
+                "nameLocation": "1830:4:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25576,
-                "src": "1822:12:24",
+                "scope": 25373,
+                "src": "1822:12:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -754,10 +754,10 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 25570,
+                  "id": 25367,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1822:7:24",
+                  "src": "1822:7:20",
                   "stateMutability": "nonpayable",
                   "typeDescriptions": {
                     "typeIdentifier": "t_address",
@@ -768,13 +768,13 @@
               },
               {
                 "constant": false,
-                "id": 25573,
+                "id": 25370,
                 "mutability": "mutable",
                 "name": "startTimestamp",
-                "nameLocation": "1943:14:24",
+                "nameLocation": "1943:14:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25576,
-                "src": "1936:21:24",
+                "scope": 25373,
+                "src": "1936:21:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -782,10 +782,10 @@
                   "typeString": "uint64"
                 },
                 "typeName": {
-                  "id": 25572,
+                  "id": 25369,
                   "name": "uint64",
                   "nodeType": "ElementaryTypeName",
-                  "src": "1936:6:24",
+                  "src": "1936:6:20",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint64",
                     "typeString": "uint64"
@@ -795,13 +795,13 @@
               },
               {
                 "constant": false,
-                "id": 25575,
+                "id": 25372,
                 "mutability": "mutable",
                 "name": "burned",
-                "nameLocation": "2018:6:24",
+                "nameLocation": "2018:6:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25576,
-                "src": "2013:11:24",
+                "scope": 25373,
+                "src": "2013:11:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -809,10 +809,10 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 25574,
+                  "id": 25371,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2013:4:24",
+                  "src": "2013:4:20",
                   "typeDescriptions": {
                     "typeIdentifier": "t_bool",
                     "typeString": "bool"
@@ -822,25 +822,25 @@
               }
             ],
             "name": "TokenOwnership",
-            "nameLocation": "1760:14:24",
-            "scope": 25592,
+            "nameLocation": "1760:14:20",
+            "scope": 25389,
             "visibility": "public"
           },
           {
-            "id": 25585,
+            "id": 25382,
             "nodeType": "StructDefinition",
-            "src": "2095:531:24",
+            "src": "2095:531:20",
             "canonicalName": "IERC721A.AddressData",
             "members": [
               {
                 "constant": false,
-                "id": 25578,
+                "id": 25375,
                 "mutability": "mutable",
                 "name": "balance",
-                "nameLocation": "2186:7:24",
+                "nameLocation": "2186:7:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25585,
-                "src": "2179:14:24",
+                "scope": 25382,
+                "src": "2179:14:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -848,10 +848,10 @@
                   "typeString": "uint64"
                 },
                 "typeName": {
-                  "id": 25577,
+                  "id": 25374,
                   "name": "uint64",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2179:6:24",
+                  "src": "2179:6:20",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint64",
                     "typeString": "uint64"
@@ -861,13 +861,13 @@
               },
               {
                 "constant": false,
-                "id": 25580,
+                "id": 25377,
                 "mutability": "mutable",
                 "name": "numberMinted",
-                "nameLocation": "2285:12:24",
+                "nameLocation": "2285:12:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25585,
-                "src": "2278:19:24",
+                "scope": 25382,
+                "src": "2278:19:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -875,10 +875,10 @@
                   "typeString": "uint64"
                 },
                 "typeName": {
-                  "id": 25579,
+                  "id": 25376,
                   "name": "uint64",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2278:6:24",
+                  "src": "2278:6:20",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint64",
                     "typeString": "uint64"
@@ -888,13 +888,13 @@
               },
               {
                 "constant": false,
-                "id": 25582,
+                "id": 25379,
                 "mutability": "mutable",
                 "name": "numberBurned",
-                "nameLocation": "2389:12:24",
+                "nameLocation": "2389:12:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25585,
-                "src": "2382:19:24",
+                "scope": 25382,
+                "src": "2382:19:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -902,10 +902,10 @@
                   "typeString": "uint64"
                 },
                 "typeName": {
-                  "id": 25581,
+                  "id": 25378,
                   "name": "uint64",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2382:6:24",
+                  "src": "2382:6:20",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint64",
                     "typeString": "uint64"
@@ -915,13 +915,13 @@
               },
               {
                 "constant": false,
-                "id": 25584,
+                "id": 25381,
                 "mutability": "mutable",
                 "name": "aux",
-                "nameLocation": "2616:3:24",
+                "nameLocation": "2616:3:20",
                 "nodeType": "VariableDeclaration",
-                "scope": 25585,
-                "src": "2609:10:24",
+                "scope": 25382,
+                "src": "2609:10:20",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -929,10 +929,10 @@
                   "typeString": "uint64"
                 },
                 "typeName": {
-                  "id": 25583,
+                  "id": 25380,
                   "name": "uint64",
                   "nodeType": "ElementaryTypeName",
-                  "src": "2609:6:24",
+                  "src": "2609:6:20",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint64",
                     "typeString": "uint64"
@@ -942,18 +942,18 @@
               }
             ],
             "name": "AddressData",
-            "nameLocation": "2102:11:24",
-            "scope": 25592,
+            "nameLocation": "2102:11:20",
+            "scope": 25389,
             "visibility": "public"
           },
           {
-            "id": 25591,
+            "id": 25388,
             "nodeType": "FunctionDefinition",
-            "src": "2830:55:24",
+            "src": "2830:55:20",
             "documentation": {
-              "id": 25586,
+              "id": 25383,
               "nodeType": "StructuredDocumentation",
-              "src": "2632:193:24",
+              "src": "2632:193:20",
               "text": " @dev Returns the total amount of tokens stored by the contract.\n Burned tokens are calculated here, use `_totalMinted()` if you want to count just minted tokens."
             },
             "functionSelector": "18160ddd",
@@ -961,26 +961,26 @@
             "kind": "function",
             "modifiers": [],
             "name": "totalSupply",
-            "nameLocation": "2839:11:24",
+            "nameLocation": "2839:11:20",
             "parameters": {
-              "id": 25587,
+              "id": 25384,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "2850:2:24"
+              "src": "2850:2:20"
             },
             "returnParameters": {
-              "id": 25590,
+              "id": 25387,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 25589,
+                  "id": 25386,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 25591,
-                  "src": "2876:7:24",
+                  "scope": 25388,
+                  "src": "2876:7:20",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -988,10 +988,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 25588,
+                    "id": 25385,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "2876:7:24",
+                    "src": "2876:7:20",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1000,9 +1000,9 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "2875:9:24"
+              "src": "2875:9:20"
             },
-            "scope": 25592,
+            "scope": 25389,
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -1012,65 +1012,65 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 25527,
+              "id": 25324,
               "name": "IERC721",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 25521,
-              "src": "248:7:24"
+              "referencedDeclaration": 25318,
+              "src": "248:7:20"
             },
-            "id": 25528,
+            "id": 25325,
             "nodeType": "InheritanceSpecifier",
-            "src": "248:7:24"
+            "src": "248:7:20"
           },
           {
             "baseName": {
-              "id": 25529,
+              "id": 25326,
               "name": "IERC721Metadata",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 25616,
-              "src": "257:15:24"
+              "referencedDeclaration": 25413,
+              "src": "257:15:20"
             },
-            "id": 25530,
+            "id": 25327,
             "nodeType": "InheritanceSpecifier",
-            "src": "257:15:24"
+            "src": "257:15:20"
           }
         ],
         "canonicalName": "IERC721A",
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 25526,
+          "id": 25323,
           "nodeType": "StructuredDocumentation",
-          "src": "166:59:24",
+          "src": "166:59:20",
           "text": " @dev Interface of an ERC721A compliant contract."
         },
         "fullyImplemented": false,
         "linearizedBaseContracts": [
-          25592,
-          25616,
-          25521
+          25389,
+          25413,
+          25318
         ],
         "name": "IERC721A",
-        "nameLocation": "236:8:24",
-        "scope": 25593,
+        "nameLocation": "236:8:20",
+        "scope": 25390,
         "usedErrors": [
-          25533,
-          25536,
-          25539,
-          25542,
-          25545,
-          25548,
-          25551,
-          25554,
-          25557,
-          25560,
-          25563,
-          25566,
-          25569
+          25330,
+          25333,
+          25336,
+          25339,
+          25342,
+          25345,
+          25348,
+          25351,
+          25354,
+          25357,
+          25360,
+          25363,
+          25366
         ]
       }
     ],
     "license": "MIT"
   },
-  "id": 24
+  "id": 20
 }
