@@ -10,6 +10,7 @@ import {AmhoNFT} from "contracts/core/AmhoNFT.sol";
 import {MockToken} from "contracts/mock/MockToken.sol";
 import {Utils} from "contracts/mock/MockUtils.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IERC721A} from "@thirdweb-dev/contracts/eip/interface/IERC721A.sol";
 
 contract BaseSetup is Test {
     EscrowRegistry internal escrow;
@@ -46,9 +47,11 @@ contract AmhoCreator is BaseSetup {
     function testMintAndDepositNft() public {
         string memory mockURI = Utils.mockURI;
         bytes32 mockSecret = Utils.mockVrf();
+        uint256 startTokenId = amho.getCurrentTokenId();
         uint256 tokenId = amho.mintNftTo(Utils.bob, mockSecret, mockURI, 1);
         address tokenOwner = amho.ownerOf(tokenId);
         assertEq(tokenOwner, Utils.bob);
+        assertEq(startTokenId, tokenId);
 
         vm.startPrank(Utils.bob);
         amho.approve(address(escrow), tokenId);

@@ -5,7 +5,9 @@ import "@thirdweb-dev/contracts/base/ERC721Base.sol";
 import "./EscrowRegistry.sol";
 
 contract AmhoNFT is ERC721Base {
-    uint256 private _tokenIds = 0;
+    uint256 private _tokenIds;
+    address payable escrowContractAddress;
+    EscrowRegistry escrowContract;
 
     // NOTE: Enum values will be used to show the state of the item on the frontend
 
@@ -26,9 +28,6 @@ contract AmhoNFT is ERC721Base {
         bytes32 secret;
     }
 
-    address payable escrowContractAddress;
-    EscrowRegistry escrowContract;
-
     mapping(uint256 => NFTState) idToNFTState;
 
     constructor(
@@ -43,7 +42,7 @@ contract AmhoNFT is ERC721Base {
     }
 
     function getCurrentTokenId() public view returns (uint256) {
-        uint256 currTokenId = _tokenIds;
+        uint256 currTokenId = nextTokenIdToMint();
         return currTokenId;
     }
 
@@ -74,7 +73,12 @@ contract AmhoNFT is ERC721Base {
     {
         address _tokenAddr = escrowContract.getTokenAddress();
         require(
-            escrowContract.depositToken(_tokenAddr ,msg.sender, _tokenId, _amount),
+            escrowContract.depositToken(
+                _tokenAddr,
+                msg.sender,
+                _tokenId,
+                _amount
+            ),
             "Tokens were not able to be deposited."
         );
 
@@ -83,10 +87,11 @@ contract AmhoNFT is ERC721Base {
         nftState.itemState = ItemState.PENDING_INIT;
     }
 
-    function depositNftToEscrow(uint256 _tokenId, bytes32 _secret) 
-        ownerMatch(_tokenId) 
+    function depositNftToEscrow(uint256 _tokenId, bytes32 _secret)
+        public
+        ownerMatch(_tokenId)
         secretMatch(_tokenId, _secret)
-    public {
+    {
         _depositNftToEscrow(_tokenId, _secret);
     }
 
@@ -128,8 +133,8 @@ contract AmhoNFT is ERC721Base {
         bytes32 secret,
         string memory tokenURI,
         uint256 _price
-    ) onlyOwner public payable returns (uint256) {
-        uint256 id = _tokenIds;
+    ) public payable onlyOwner returns (uint256) {
+        uint256 id = getCurrentTokenId();
 
         setApprovalForAll(escrowContractAddress, true);
         mintTo(_to, tokenURI);
@@ -143,16 +148,13 @@ contract AmhoNFT is ERC721Base {
             secret: secret
         });
 
-        _tokenIds = _tokenIds += 1;
-        // _setTokenURI(id, tokenURI);
-
         return id;
     }
 
     // NOTE: Fetch On Sale
 
     function fetchOnSale() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds;
+        uint256 totalCount = getCurrentTokenId();
         uint256 ownedCount = 0;
         uint256 currentIndex = 0;
 
@@ -179,7 +181,7 @@ contract AmhoNFT is ERC721Base {
     // NOTE: Fetch Owned
 
     function fetchOwned() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds;
+        uint256 totalCount = getCurrentTokenId();
         uint256 ownedCount = 0;
         uint256 currentIndex = 0;
 
@@ -206,7 +208,7 @@ contract AmhoNFT is ERC721Base {
     // NOTE: PENDING_INIT
 
     function fetchPendingInitOrders() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds;
+        uint256 totalCount = getCurrentTokenId();
         uint256 pendingInitCount = 0;
         uint256 currentIndex = 0;
 
@@ -234,7 +236,7 @@ contract AmhoNFT is ERC721Base {
     // NOTE: PENDING_TETHER Case in which just minted or just bought
 
     function fetchPendingTether() public view returns (NFTState[] memory) {
-        uint256 totalCount = _tokenIds;
+        uint256 totalCount = getCurrentTokenId();
         uint256 pendingTetherCount = 0;
         uint256 currentIndex = 0;
 
@@ -271,7 +273,15 @@ contract AmhoNFT is ERC721Base {
     }
 
     modifier ownerMatch(uint256 _tokenId) {
-        require(msg.sender == idToNFTState[_tokenId].currentOwner, "Caller is not current owner");
+        require(
+            msg.sender == idToNFTState[_tokenId].currentOwner,
+            "Caller is not current owner"
+        );
+        _;
+    }
+
+    modifier nextOwnerMatch(uint256 _tokenId) {
+        require(msg.sender == idToNFTState[_tokenId].nextOwner);
         _;
     }
 

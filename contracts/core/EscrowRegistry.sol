@@ -1,8 +1,8 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./AmhoNFT.sol";
 import "forge-std/console.sol";
+import "./AmhoNFT.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@thirdweb-dev/contracts/eip/interface/IERC721A.sol";
 
@@ -10,6 +10,10 @@ contract EscrowRegistry {
     address amho;
     address token;
     bool addressSet;
+
+    event ReceivedNFT(address, uint256);
+    event DepositedNFT(address indexed seller, address tokenAddress);
+    event DepositedToken(address indexed buyer, uint256 amount);
 
     enum EscrowOrderState {
         DEPOSITED_NFT,
@@ -30,10 +34,6 @@ contract EscrowRegistry {
     // Token ID to get order buyer, seller, and status
 
     mapping(uint256 => EscrowOrder) public escrowOrderById;
-
-    event ReceivedNFT(address, uint256);
-    event DepositedNFT(address indexed seller, address tokenAddress);
-    event DepositedToken(address indexed buyer, uint256 amount);
 
     function setTokenAddresses(address _amho, address _token) public {
         amho = _amho;
@@ -60,9 +60,8 @@ contract EscrowRegistry {
         uint256 amount
     ) external returns (bool) {
         require(addressSet, "Addresses not set");
-        AmhoNFT _amho = AmhoNFT(amho);
 
-        address seller = _amho.ownerOf(_tokenId);
+        address seller = IERC721A(amho).ownerOf(_tokenId);
 
         escrowOrderById[_tokenId] = EscrowOrder({
             buyer: payable(from),
@@ -86,7 +85,6 @@ contract EscrowRegistry {
         returns (bool)
     {
         require(addressSet, "Addresses not set");
-
         address seller = IERC721A(amho).ownerOf(_tokenId);
         EscrowOrder storage order = escrowOrderById[_tokenId];
 
@@ -102,9 +100,9 @@ contract EscrowRegistry {
 
     function releaseOrder(uint256 _tokenId, bytes32 _secret)
         external
-        secretGated(_tokenId, _secret)
         returns (uint256)
     {
+        require(AmhoNFT(amho).getSecret(_tokenId) == _secret, "Unauthorized");
         EscrowOrder memory escrowOrder = escrowOrderById[_tokenId];
 
         address _buyer = escrowOrder.buyer;
@@ -121,12 +119,5 @@ contract EscrowRegistry {
 
     receive() external payable {
         emit ReceivedNFT(msg.sender, msg.value);
-    }
-
-    modifier secretGated(uint256 _tokenId, bytes32 _secret) {
-        AmhoNFT _amho = AmhoNFT(amho);
-        bytes32 secret = _amho.getSecret(_tokenId);
-        require(secret == _secret, "Unauthorized");
-        _;
     }
 }
