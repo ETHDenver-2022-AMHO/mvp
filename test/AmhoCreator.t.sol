@@ -6,6 +6,7 @@ import "forge-std/console.sol";
 import "forge-std/Vm.sol";
 
 import {EscrowRegistry} from "contracts/core/EscrowRegistry.sol";
+import {EscrowVerifier} from "contracts/core/EscrowVerifier.sol";
 import {AmhoNFT} from "contracts/core/AmhoNFT.sol";
 import {MockToken} from "contracts/mock/MockToken.sol";
 import {Utils} from "contracts/mock/MockUtils.sol";
@@ -36,54 +37,48 @@ contract BaseSetup is Test {
     }
 }
 
-contract AmhoCreator is BaseSetup {
+contract EscrowSetup is BaseSetup {
+    function baseSetup() public virtual {
+        BaseSetup.setUp();
+    }
+    function depositSetup() internal {
+        string memory mockURI = Utils.mockURI;
+        bytes32 mockSecret = Utils.mockVrf();
+        uint256 startTokenId = BaseSetup.amho.getCurrentTokenId();
+        uint256 tokenId = BaseSetup.amho.mintNftTo(Utils.bob, mockSecret, mockURI, 1);
+
+        vm.startPrank(Utils.bob);
+        BaseSetup.amho.approve(address(escrow), tokenId);
+        BaseSetup.amho.depositNftToEscrow(tokenId, mockSecret);
+        vm.stopPrank();
+
+
+        vm.startPrank(Utils.alice);
+        address tokenAddress = BaseSetup.getTokenAddress();
+        IERC20(tokenAddress).approve(address(escrow), 1);
+        amho.depositTokenToEscrow(tokenId, 1);
+        vm.stopPrank();
+    }
+}
+
+contract AmhoCreator is EscrowSetup {
     event DepositedNFT(address indexed seller, address tokenAddress);
 
     function setUp() public override {
         // Setup AMHO address and token address
-        BaseSetup.setUp();
+        EscrowSetup.baseSetup();
     }
 
     function testMintAndDepositNft() public {
-        string memory mockURI = Utils.mockURI;
-        bytes32 mockSecret = Utils.mockVrf();
-        uint256 startTokenId = amho.getCurrentTokenId();
-        uint256 tokenId = amho.mintNftTo(Utils.bob, mockSecret, mockURI, 1);
-        address tokenOwner = amho.ownerOf(tokenId);
-        assertEq(tokenOwner, Utils.bob);
-        assertEq(startTokenId, tokenId);
-
-        vm.startPrank(Utils.bob);
-        amho.approve(address(escrow), tokenId);
-        amho.depositNftToEscrow(tokenId, mockSecret);
-        vm.stopPrank();
-    }
-
-    function testBalance() public {
-        address tokenAddress = BaseSetup.getTokenAddress();
-        uint256 bobBal = IERC20(tokenAddress).balanceOf(Utils.alice);
-        uint256 aliceBal = IERC20(tokenAddress).balanceOf(Utils.bob);
-        assertEq(bobBal, 1000);
-        assertEq(aliceBal, 1000);
+        EscrowSetup.depositSetup();
+        address tokenOwner = BaseSetup.amho.ownerOf(0);
+        assertEq(tokenOwner, address(BaseSetup.escrow));
     }
 
     function testMintAndDepositToken() public {
-        string memory mockURI = Utils.mockURI;
-        bytes32 mockSecret = Utils.mockVrf();
-        uint256 tokenId = amho.mintNftTo(Utils.bob, mockSecret, mockURI, 1);
+        EscrowSetup.depositSetup();
         address tokenAddress = BaseSetup.getTokenAddress();
-
-        vm.startPrank(Utils.bob);
-        amho.approve(address(escrow), tokenId);
-        amho.depositNftToEscrow(tokenId, mockSecret);
-        assertEq(amho.ownerOf(tokenId), address(escrow));
-        vm.stopPrank();
-
-        vm.startPrank(Utils.alice);
-        IERC20(tokenAddress).approve(address(escrow), 1);
-        amho.depositTokenToEscrow(tokenId, 1);
         assertEq(IERC20(tokenAddress).balanceOf(Utils.alice), 999);
         assertEq(IERC20(tokenAddress).balanceOf(address(escrow)), 1);
-        vm.stopPrank();
     }
 }

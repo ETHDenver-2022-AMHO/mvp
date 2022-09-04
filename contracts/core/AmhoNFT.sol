@@ -6,7 +6,6 @@ import "./EscrowRegistry.sol";
 
 contract AmhoNFT is ERC721Base {
     uint256 private _tokenIds;
-    address payable escrowContractAddress;
     EscrowRegistry escrowContract;
 
     // NOTE: Enum values will be used to show the state of the item on the frontend
@@ -19,7 +18,7 @@ contract AmhoNFT is ERC721Base {
         UNTETHERED
     }
 
-    struct NFTState {
+    struct NFTMetadata {
         ItemState itemState;
         uint256 tokenId;
         uint256 price;
@@ -28,7 +27,7 @@ contract AmhoNFT is ERC721Base {
         bytes32 secret;
     }
 
-    mapping(uint256 => NFTState) idToNFTState;
+    mapping(uint256 => NFTMetadata) idToNFTMetadata;
 
     constructor(
         string memory _name,
@@ -37,8 +36,9 @@ contract AmhoNFT is ERC721Base {
         uint128 _royaltySplitBps,
         address payable _escrowContractAddress
     ) ERC721Base(_name, _symbol, _royaltySplitRecipient, _royaltySplitBps) {
-        escrowContractAddress = payable(_escrowContractAddress);
-        escrowContract = EscrowRegistry(_escrowContractAddress);
+        escrowContract = EscrowRegistry(
+            payable(_escrowContractAddress)
+        );
     }
 
     function getCurrentTokenId() public view returns (uint256) {
@@ -53,24 +53,24 @@ contract AmhoNFT is ERC721Base {
     function getNFTState(uint256 _tokenId)
         public
         view
-        returns (NFTState memory)
+        returns (NFTMetadata memory)
     {
-        return idToNFTState[_tokenId];
+        return idToNFTMetadata[_tokenId];
     }
 
     function getSecret(uint256 _tokenId) external view returns (bytes32) {
-        NFTState memory orderState = getNFTState(_tokenId);
-        return orderState.secret;
+        bytes32 _secret = idToNFTMetadata[_tokenId].secret;
+        return _secret;
     }
 
-    function depositTokenToEscrow(uint256 _tokenId, uint256 _amount) public {
-        _depositTokenToEscrow(_tokenId, _amount);
-    }
-
-    function _depositTokenToEscrow(uint256 _tokenId, uint256 _amount)
+    function depositTokenToEscrow(uint256 _tokenId, uint256 _amount)
         public
         priceMatch(_tokenId, _amount)
     {
+        _depositTokenToEscrow(_tokenId, _amount);
+    }
+
+    function _depositTokenToEscrow(uint256 _tokenId, uint256 _amount) public {
         address _tokenAddr = escrowContract.getTokenAddress();
         require(
             escrowContract.depositToken(
@@ -82,15 +82,13 @@ contract AmhoNFT is ERC721Base {
             "Tokens were not able to be deposited."
         );
 
-        NFTState storage nftState = idToNFTState[_tokenId];
+        NFTMetadata storage nftState = idToNFTMetadata[_tokenId];
         nftState.nextOwner = msg.sender;
         nftState.itemState = ItemState.PENDING_INIT;
     }
 
     function depositNftToEscrow(uint256 _tokenId, bytes32 _secret)
         public
-        ownerMatch(_tokenId)
-        secretMatch(_tokenId, _secret)
     {
         _depositNftToEscrow(_tokenId, _secret);
     }
@@ -101,7 +99,8 @@ contract AmhoNFT is ERC721Base {
             "NFT was not able to be deposited."
         );
 
-        NFTState storage nftState = idToNFTState[_tokenId];
+        NFTMetadata storage nftState = idToNFTMetadata[_tokenId];
+
         if (nftState.currentOwner != msg.sender) {
             nftState.currentOwner = msg.sender;
         }
@@ -111,6 +110,7 @@ contract AmhoNFT is ERC721Base {
 
     function releaseOrderToEscrow(uint256 _tokenId, bytes32 _secret)
         public
+        secretMatch(_tokenId, _secret)
         returns (uint256)
     {
         _releaseOrderToEscrow(_tokenId, _secret);
@@ -120,8 +120,10 @@ contract AmhoNFT is ERC721Base {
         public
         returns (uint256)
     {
-        require(msg.sender == idToNFTState[_tokenId].nextOwner);
-        NFTState storage nftState = idToNFTState[_tokenId];
+        require(
+            msg.sender == idToNFTMetadata[_tokenId].nextOwner
+        );
+        NFTMetadata storage nftState = idToNFTMetadata[_tokenId];
         nftState.itemState = ItemState.TETHERED;
         nftState.currentOwner = msg.sender;
         uint256 retTokenId = escrowContract.releaseOrder(_tokenId, _secret);
@@ -136,15 +138,15 @@ contract AmhoNFT is ERC721Base {
     ) public payable onlyOwner returns (uint256) {
         uint256 id = getCurrentTokenId();
 
-        setApprovalForAll(escrowContractAddress, true);
+        setApprovalForAll(address(escrowContract), true);
         mintTo(_to, tokenURI);
 
-        idToNFTState[id] = NFTState({
+        idToNFTMetadata[id] = NFTMetadata({
             price: _price,
             tokenId: id,
+            itemState: ItemState.NEW,
             currentOwner: _to,
             nextOwner: address(0),
-            itemState: ItemState.NEW,
             secret: secret
         });
 
@@ -153,23 +155,23 @@ contract AmhoNFT is ERC721Base {
 
     // NOTE: Fetch On Sale
 
-    function fetchOnSale() public view returns (NFTState[] memory) {
+    function fetchOnSale() public view returns (NFTMetadata[] memory) {
         uint256 totalCount = getCurrentTokenId();
         uint256 ownedCount = 0;
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalCount; i++) {
-            if (idToNFTState[i].itemState == ItemState.NEW) {
+            if (idToNFTMetadata[i].itemState == ItemState.NEW) {
                 ownedCount++;
             }
         }
 
-        NFTState[] memory inMemItems = new NFTState[](ownedCount);
+        NFTMetadata[] memory inMemItems = new NFTMetadata[](ownedCount);
 
         for (uint256 i = 0; i < ownedCount; i++) {
-            if (idToNFTState[i].itemState == ItemState.NEW) {
-                uint256 currentId = idToNFTState[i].tokenId;
-                NFTState storage currentItem = idToNFTState[currentId];
+            if (idToNFTMetadata[i].itemState == ItemState.NEW) {
+                uint256 currentId = idToNFTMetadata[i].tokenId;
+                NFTMetadata storage currentItem = idToNFTMetadata[currentId];
                 inMemItems[currentIndex] = currentItem;
                 currentIndex++;
             }
@@ -180,23 +182,23 @@ contract AmhoNFT is ERC721Base {
 
     // NOTE: Fetch Owned
 
-    function fetchOwned() public view returns (NFTState[] memory) {
+    function fetchOwned() public view returns (NFTMetadata[] memory) {
         uint256 totalCount = getCurrentTokenId();
         uint256 ownedCount = 0;
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalCount; i++) {
-            if (idToNFTState[i].currentOwner == msg.sender) {
+            if (idToNFTMetadata[i].currentOwner == msg.sender) {
                 ownedCount++;
             }
         }
 
-        NFTState[] memory inMemOwnedItems = new NFTState[](ownedCount);
+        NFTMetadata[] memory inMemOwnedItems = new NFTMetadata[](ownedCount);
 
         for (uint256 i = 0; i < ownedCount; i++) {
-            if (idToNFTState[i].currentOwner == msg.sender) {
-                uint256 currentId = idToNFTState[i].tokenId;
-                NFTState storage currentItem = idToNFTState[currentId];
+            if (idToNFTMetadata[i].currentOwner == msg.sender) {
+                uint256 currentId = idToNFTMetadata[i].tokenId;
+                NFTMetadata storage currentItem = idToNFTMetadata[currentId];
                 inMemOwnedItems[currentIndex] = currentItem;
                 currentIndex++;
             }
@@ -207,26 +209,26 @@ contract AmhoNFT is ERC721Base {
 
     // NOTE: PENDING_INIT
 
-    function fetchPendingInitOrders() public view returns (NFTState[] memory) {
+    function fetchPendingInitOrders() public view returns (NFTMetadata[] memory) {
         uint256 totalCount = getCurrentTokenId();
         uint256 pendingInitCount = 0;
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalCount; i++) {
             if (
-                idToNFTState[i].itemState == ItemState.PENDING_INIT &&
-                (idToNFTState[i].currentOwner == msg.sender ||
-                    idToNFTState[i].nextOwner == msg.sender)
+                idToNFTMetadata[i].itemState == ItemState.PENDING_INIT &&
+                (idToNFTMetadata[i].currentOwner == msg.sender ||
+                    idToNFTMetadata[i].nextOwner == msg.sender)
             ) {
                 pendingInitCount++;
             }
         }
 
-        NFTState[] memory inMemPendingItems = new NFTState[](pendingInitCount);
+        NFTMetadata[] memory inMemPendingItems = new NFTMetadata[](pendingInitCount);
 
         for (uint256 i = 0; i < pendingInitCount; i++) {
-            uint256 currentId = idToNFTState[i].tokenId;
-            NFTState storage currentItem = idToNFTState[currentId];
+            uint256 currentId = idToNFTMetadata[i].tokenId;
+            NFTMetadata storage currentItem = idToNFTMetadata[currentId];
             inMemPendingItems[currentIndex] = currentItem;
             currentIndex++;
         }
@@ -235,29 +237,29 @@ contract AmhoNFT is ERC721Base {
 
     // NOTE: PENDING_TETHER Case in which just minted or just bought
 
-    function fetchPendingTether() public view returns (NFTState[] memory) {
+    function fetchPendingTether() public view returns (NFTMetadata[] memory) {
         uint256 totalCount = getCurrentTokenId();
         uint256 pendingTetherCount = 0;
         uint256 currentIndex = 0;
 
         for (uint256 i = 0; i < totalCount; i++) {
             if (
-                ((idToNFTState[i].itemState == ItemState.PENDING_TETHER &&
-                    (idToNFTState[i].nextOwner == msg.sender)) ||
-                    idToNFTState[i].nextOwner == address(0))
+                ((idToNFTMetadata[i].itemState == ItemState.PENDING_TETHER &&
+                    (idToNFTMetadata[i].nextOwner == msg.sender)) ||
+                    idToNFTMetadata[i].nextOwner == address(0))
             ) {
                 pendingTetherCount++;
             }
         }
 
-        NFTState[] memory inMemPendingItems = new NFTState[](
+        NFTMetadata[] memory inMemPendingItems = new NFTMetadata[](
             pendingTetherCount
         );
 
         for (uint256 i = 0; i < pendingTetherCount; i++) {
-            if (idToNFTState[i].nextOwner == msg.sender) {
-                uint256 currentId = idToNFTState[i].tokenId;
-                NFTState storage currentItem = idToNFTState[currentId];
+            if (idToNFTMetadata[i].nextOwner == msg.sender) {
+                uint256 currentId = idToNFTMetadata[i].tokenId;
+                NFTMetadata storage currentItem = idToNFTMetadata[currentId];
                 inMemPendingItems[currentIndex] = currentItem;
                 currentIndex++;
             }
@@ -274,29 +276,29 @@ contract AmhoNFT is ERC721Base {
 
     modifier ownerMatch(uint256 _tokenId) {
         require(
-            msg.sender == idToNFTState[_tokenId].currentOwner,
+            msg.sender == idToNFTMetadata[_tokenId].currentOwner,
             "Caller is not current owner"
         );
         _;
     }
 
     modifier nextOwnerMatch(uint256 _tokenId) {
-        require(msg.sender == idToNFTState[_tokenId].nextOwner);
+        require(msg.sender == idToNFTMetadata[_tokenId].nextOwner);
         _;
     }
 
     modifier secretMatch(uint256 _tokenId, bytes32 _secret) {
-        require(_secret == idToNFTState[_tokenId].secret, "Unauthorized");
+        require(_secret == idToNFTMetadata[_tokenId].secret, "Unauthorized");
         _;
     }
 
     // NOTE: Functions for Lit Protocol
 
     function getCurrentOwner(uint256 _tokenId) public view returns (address) {
-        return idToNFTState[_tokenId].currentOwner;
+        return idToNFTMetadata[_tokenId].currentOwner;
     }
 
     function getNextOwner(uint256 _tokenId) public view returns (address) {
-        return idToNFTState[_tokenId].nextOwner;
+        return idToNFTMetadata[_tokenId].nextOwner;
     }
 }

@@ -15,11 +15,12 @@ TODO:
 */
 
 contract UpgradeTest is DSTest {
-    string testName = "test";    
+    string testName = "test";
     string testSym = "TEST";
     address testRoyaltySplitRecipient = address(100);
     uint128 testRoyaltySplitBps = uint128(10000);
     address payable testEscrowContractAddress = payable(address(99));
+    address payable testEscrowVerifierContractAddress = payable(address(98));
 
     ProxyTester proxy;
 
@@ -34,7 +35,13 @@ contract UpgradeTest is DSTest {
 
     function setUp() public {
         proxy = new ProxyTester();
-        impl = new AmhoNFT(testName, testSym, testRoyaltySplitRecipient, testRoyaltySplitBps, testEscrowContractAddress);
+        impl = new AmhoNFT(
+            testName,
+            testSym,
+            testRoyaltySplitRecipient,
+            testRoyaltySplitBps,
+            testEscrowContractAddress
+        );
         admin = vm.addr(69);
     }
 
@@ -57,7 +64,13 @@ contract UpgradeTest is DSTest {
 
     function testUpgradeUUPS() public {
         testDeployUUPS();
-        AmhoNFT newImpl = new AmhoNFT(testName, testSym, testRoyaltySplitRecipient, testRoyaltySplitBps, testEscrowContractAddress);
+        AmhoNFT newImpl = new AmhoNFT(
+            testName,
+            testSym,
+            testRoyaltySplitRecipient,
+            testRoyaltySplitBps,
+            testEscrowContractAddress
+        );
         /// Since the admin is an EOA, it doesn't have an owner
         proxy.upgrade(address(newImpl), admin, address(0));
         bytes32 implSlot = bytes32(
