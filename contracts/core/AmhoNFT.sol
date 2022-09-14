@@ -1,12 +1,17 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+
+
 import "@thirdweb-dev/contracts/base/ERC721Base.sol";
+import "@thirdweb-dev/contracts/extension/LazyMint.sol";
+
 import "./EscrowRegistry.sol";
 
-contract AmhoNFT is ERC721Base {
-    uint256 private _tokenIds;
+contract AmhoNFT is ERC721Base, LazyMint {
     EscrowRegistry escrowContract;
+    address physicalRegistry;
+    uint256 private _tokenIds;
 
     // NOTE: Enum values will be used to show the state of the item on the frontend
 
@@ -24,7 +29,7 @@ contract AmhoNFT is ERC721Base {
         uint256 price;
         address currentOwner;
         address nextOwner;
-        bytes32 secret;
+        bytes32 secretHash;
     }
 
     mapping(uint256 => NFTMetadata) idToNFTMetadata;
@@ -34,11 +39,11 @@ contract AmhoNFT is ERC721Base {
         string memory _symbol,
         address _royaltySplitRecipient,
         uint128 _royaltySplitBps,
-        address payable _escrowContractAddress
+        address payable _escrowContractAddress,
+        address _physicalRegistryAddress
     ) ERC721Base(_name, _symbol, _royaltySplitRecipient, _royaltySplitBps) {
-        escrowContract = EscrowRegistry(
-            payable(_escrowContractAddress)
-        );
+        escrowContract = EscrowRegistry(_escrowContractAddress);
+        physicalRegistry = _physicalRegistryAddress;
     }
 
     function getCurrentTokenId() public view returns (uint256) {
@@ -47,10 +52,10 @@ contract AmhoNFT is ERC721Base {
     }
 
     function getPrice(uint256 _tokenId) public view returns (uint256) {
-        return getNFTState(_tokenId).price;
+        return getNFTMetadata(_tokenId).price;
     }
 
-    function getNFTState(uint256 _tokenId)
+    function getNFTMetadata(uint256 _tokenId)
         public
         view
         returns (NFTMetadata memory)
@@ -58,9 +63,9 @@ contract AmhoNFT is ERC721Base {
         return idToNFTMetadata[_tokenId];
     }
 
-    function getSecret(uint256 _tokenId) external view returns (bytes32) {
-        bytes32 _secret = idToNFTMetadata[_tokenId].secret;
-        return _secret;
+    function getSecret(uint256 _tokenId) public view returns (bytes32) {
+        bytes32 _secretHash = idToNFTMetadata[_tokenId].secretHash;
+        return _secretHash;
     }
 
     function depositTokenToEscrow(uint256 _tokenId, uint256 _amount)
@@ -87,13 +92,13 @@ contract AmhoNFT is ERC721Base {
         nftState.itemState = ItemState.PENDING_INIT;
     }
 
-    function depositNftToEscrow(uint256 _tokenId, bytes32 _secret)
+    function depositNftToEscrow(uint256 _tokenId, bytes32 _secretHash)
         public
     {
-        _depositNftToEscrow(_tokenId, _secret);
+        _depositNftToEscrow(_tokenId, _secretHash);
     }
 
-    function _depositNftToEscrow(uint256 _tokenId, bytes32 _secret) public {
+    function _depositNftToEscrow(uint256 _tokenId, bytes32 _secretHash) public secretMatch(_tokenId, _secretHash) {
         require(
             escrowContract.depositNFT(msg.sender, _tokenId),
             "NFT was not able to be deposited."
@@ -108,15 +113,15 @@ contract AmhoNFT is ERC721Base {
         nftState.itemState = ItemState.PENDING_TETHER;
     }
 
-    function releaseOrderToEscrow(uint256 _tokenId, bytes32 _secret)
+    function releaseOrderToEscrow(uint256 _tokenId, bytes32 _secretHash)
         public
-        secretMatch(_tokenId, _secret)
+        secretMatch(_tokenId, _secretHash)
         returns (uint256)
     {
-        _releaseOrderToEscrow(_tokenId, _secret);
+        _releaseOrderToEscrow(_tokenId, _secretHash);
     }
 
-    function _releaseOrderToEscrow(uint256 _tokenId, bytes32 _secret)
+    function _releaseOrderToEscrow(uint256 _tokenId, bytes32 _secretHash)
         public
         returns (uint256)
     {
@@ -126,13 +131,13 @@ contract AmhoNFT is ERC721Base {
         NFTMetadata storage nftState = idToNFTMetadata[_tokenId];
         nftState.itemState = ItemState.TETHERED;
         nftState.currentOwner = msg.sender;
-        uint256 retTokenId = escrowContract.releaseOrder(_tokenId, _secret);
+        uint256 retTokenId = escrowContract.releaseOrder(_tokenId, _secretHash);
         return retTokenId;
     }
 
     function mintNftTo(
         address _to,
-        bytes32 secret,
+        bytes32 _secretHash,
         string memory tokenURI,
         uint256 _price
     ) public payable onlyOwner returns (uint256) {
@@ -147,7 +152,7 @@ contract AmhoNFT is ERC721Base {
             itemState: ItemState.NEW,
             currentOwner: _to,
             nextOwner: address(0),
-            secret: secret
+            secretHash:_secretHash 
         });
 
         return id;
@@ -270,7 +275,7 @@ contract AmhoNFT is ERC721Base {
 
     modifier priceMatch(uint256 _tokenId, uint256 _amount) {
         uint256 price = getPrice(_tokenId);
-        require(price == _amount, "Wrong value was sent");
+        require(price == _amount, "Wrong amount was sent");
         _;
     }
 
@@ -287,8 +292,8 @@ contract AmhoNFT is ERC721Base {
         _;
     }
 
-    modifier secretMatch(uint256 _tokenId, bytes32 _secret) {
-        require(_secret == idToNFTMetadata[_tokenId].secret, "Unauthorized");
+    modifier secretMatch(uint256 _tokenId, bytes32 _secretHash) {
+        require(_secretHash == idToNFTMetadata[_tokenId].secretHash, "Unauthorized");
         _;
     }
 
@@ -298,7 +303,10 @@ contract AmhoNFT is ERC721Base {
         return idToNFTMetadata[_tokenId].currentOwner;
     }
 
-    function getNextOwner(uint256 _tokenId) public view returns (address) {
+    function getApprovedOwner(uint256 _tokenId) public view returns (address) {
         return idToNFTMetadata[_tokenId].nextOwner;
+    }
+    function _canLazyMint() internal view override returns (bool) {
+        // Your custom implementation here
     }
 }

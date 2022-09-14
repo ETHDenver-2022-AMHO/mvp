@@ -17,8 +17,10 @@ TODO:
 contract UpgradeTest is DSTest {
     string testName = "test";
     string testSym = "TEST";
-    address testRoyaltySplitRecipient = address(100);
     uint128 testRoyaltySplitBps = uint128(10000);
+
+    address testRoyaltySplitRecipient = address(100);
+    address testPhysicalRegistryContractAddress = payable(address(97));
     address payable testEscrowContractAddress = payable(address(99));
     address payable testEscrowVerifierContractAddress = payable(address(98));
 
@@ -40,7 +42,8 @@ contract UpgradeTest is DSTest {
             testSym,
             testRoyaltySplitRecipient,
             testRoyaltySplitBps,
-            testEscrowContractAddress
+            testEscrowContractAddress,
+            testPhysicalRegistryContractAddress
         );
         admin = vm.addr(69);
     }
@@ -69,7 +72,8 @@ contract UpgradeTest is DSTest {
             testSym,
             testRoyaltySplitRecipient,
             testRoyaltySplitBps,
-            testEscrowContractAddress
+            testEscrowContractAddress,
+            testPhysicalRegistryContractAddress
         );
         /// Since the admin is an EOA, it doesn't have an owner
         proxy.upgrade(address(newImpl), admin, address(0));
