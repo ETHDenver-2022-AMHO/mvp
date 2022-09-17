@@ -3,13 +3,21 @@
 pragma solidity ^0.8.0;
 
 interface IEscrowRegistry {
-    event NFTReceived(address indexed from, uint256 indexed tokenId);
-    event NFTLocked(address indexed seller, address indexed tokenAddress);
-    event NFTReleased(address indexed to, uint256 indexed tokenId);
-    event PaymentLocked(address indexed buyer, uint256 indexed amount);
-    event PaymentReleased(address indexed to, uint256 indexed amount);
-    event EscrowOverride(bytes32 orderId);
+    event ReceivedNFT(address indexed from, uint256 indexed tokenId);
+    event ReleasedNFT(address indexed to, uint256 indexed tokenId);
+    event LockNFT(address indexed seller, address indexed tokenAddress);
+    event UnlockNFT(address indexed seller, address indexed tokenAddress);
+    event ReceivedToken(address indexed buyer, uint256 indexed amount);
+    event ReleasedToken(address indexed to, uint256 indexed amount);
+    event OrderOverride(bytes32 orderId);
 
-    function getEscrowStatus(uint256 tokenId) external;
-    function getEscrowSecret(address buyer, address seller, uint256 tokenId) external;
+    function setTokenAddresses(address, address) external;
+    function getTokenAddress() external view;
+    function getEscrowOrderById(uint256) external view;
+    function getEscrowOrderStateById(uint256) external view;
+
+    function depositToken(address, address, uint256, uint256) external returns (bool);
+    function depositNFT(address, uint256) external returns (bool);
+
+    function releaseOrder(uint256, bytes32) external returns (int256);
 }
